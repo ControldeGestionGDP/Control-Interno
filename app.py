@@ -1,5 +1,6 @@
 import streamlit as st
 from pathlib import Path
+import base64
 
 # =========================================================
 # CONFIGURACIÓN DE PÁGINA
@@ -57,44 +58,44 @@ with st.sidebar:
     .executive-card-sidebar {{
         background: white;
         border-radius: 14px;
-        padding: 22px 18px;
+        padding: 20px 16px;
         border-top: 4px solid {COLOR_NARANJA};
-        box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.05);
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }}
     .exe-title-sidebar {{
         font-weight: 800;
         color: {COLOR_AZUL};
         margin-bottom: 4px;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         letter-spacing: -0.3px;
         text-transform: uppercase;
     }}
     .exe-status-sidebar {{
         display: inline-block;
-        padding: 3px 12px;
+        padding: 2px 10px;
         background: #FEE2E2;
         color: #DC2626;
         border-radius: 12px;
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 800;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         letter-spacing: 0.5px;
     }}
     </style>
     
     <div class="executive-card-sidebar">
-        <div style="font-size: 2.2rem; margin-bottom: 6px;">🔍</div>
+        <div style="font-size: 2rem; margin-bottom: 4px;">🔍</div>
         <div class="exe-title-sidebar">Panel Ejecutivo</div>
         <div class="exe-status-sidebar">● ACCESO RESTRINGIDO</div>
-        <p style="color: #64748b; font-size: 0.83rem; line-height: 1.45; margin-top: 4px;">
-            Ecosistema de Control Interno consolidado en una sola vista estratégica.
+        <p style="color: #64748b; font-size: 0.82rem; line-height: 1.4; margin-top: 2px;">
+            Ecosistema de Control Interno consolidado para Gerencia.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    if st.button("INGRESAR A GERENCIA", use_container_width=True, help="Solo personal autorizado"):
+    if st.button("🔐 INGRESAR A GERENCIA", use_container_width=True, help="Solo personal autorizado"):
         st.session_state.area = "Gerencia"
         st.session_state.auth = False
         st.rerun()
@@ -117,84 +118,84 @@ st.markdown(f"""
 #MainMenu, footer, header {{visibility: hidden;}}
 
 .block-container {{
-    padding-top: 1.8rem !important;
-    padding-bottom: 3rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 2.5rem !important;
     max-width: 1200px !important;
 }}
 
 /* Header Hero Gerencial */
 .hero-header {{
     background: white;
-    border-radius: 16px;
-    padding: 2.2rem 2.5rem;
+    border-radius: 14px;
+    padding: 1.8rem 2.2rem;
     border-top: 5px solid {COLOR_NARANJA};
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-    margin-bottom: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+    margin-bottom: 1.8rem;
 }}
 
 .brand-tag {{
     color: {COLOR_NARANJA};
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 800;
-    letter-spacing: 1.8px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
 }}
 
 .hero-title {{
     color: {COLOR_AZUL};
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.8px;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
 }}
 
 .hero-subtitle {{
     color: #64748b;
-    font-size: 0.98rem;
+    font-size: 0.92rem;
     font-weight: 400;
 }}
 
 .title-accent {{
     height: 4px;
-    width: 90px;
+    width: 80px;
     background: linear-gradient(90deg, {COLOR_AZUL}, {COLOR_NARANJA});
     border-radius: 4px;
-    margin-top: 14px;
+    margin-top: 12px;
 }}
 
 /* Login Box Estilizado */
 .login-box {{
     background: white;
-    padding: 35px;
-    border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.05);
     border-top: 5px solid {COLOR_AZUL};
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }}
 
-/* Tarjetas Flexibles con Altura Fija */
+/* Tarjetas Compactas y Ajustadas (270px) */
 .card {{
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
     background: white;
     border: 1px solid #e2e8f0;
-    transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    height: 380px; /* Altura uniforme para alineación perfecta */
-    margin-bottom: 10px;
+    height: 270px;
+    margin-bottom: 12px;
 }}
 
 .card:hover {{
-    transform: translateY(-6px);
-    box-shadow: 0 18px 36px rgba(0,0,0,0.09);
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.08);
     border-color: {COLOR_NARANJA};
 }}
 
 .card-img-container {{
-    height: 180px;
+    height: 145px;
     width: 100%;
     overflow: hidden;
     background: #f1f5f9;
@@ -212,27 +213,24 @@ st.markdown(f"""
 }}
 
 .card-body {{
-    padding: 16px;
+    padding: 14px 16px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
+    justify-content: flex-start;
 }}
 
 .card-title-text {{
     font-weight: 800;
-    font-size: 1.08rem;
+    font-size: 1.05rem;
     color: {COLOR_AZUL};
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }}
 
 .card-desc-text {{
     font-weight: 400;
     color: #64748b;
-    font-size: 0.88rem;
-    line-height: 1.35;
-    height: 40px; /* Espacio fijo para texto */
-    overflow: hidden;
+    font-size: 0.85rem;
+    line-height: 1.3;
 }}
 
 /* Botones Nativos */
@@ -241,18 +239,18 @@ div.stButton > button {{
     color: #ffffff !important;
     border: none !important;
     border-radius: 10px !important;
-    padding: 0.7rem 1.5rem !important;
-    font-size: 0.92rem !important;
+    padding: 0.65rem 1.2rem !important;
+    font-size: 0.9rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.3px !important;
     width: 100% !important;
-    box-shadow: 0 4px 14px rgba(10, 56, 102, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(10, 56, 102, 0.15) !important;
     transition: all 0.25s ease !important;
 }}
 
 div.stButton > button:hover {{
     background-color: {COLOR_AZUL_HOVER} !important;
-    box-shadow: 0 8px 20px rgba(10, 56, 102, 0.25) !important;
+    box-shadow: 0 6px 16px rgba(10, 56, 102, 0.25) !important;
     transform: translateY(-2px);
 }}
 
@@ -262,9 +260,8 @@ div.stButton > button:hover {{
     color: #94a3b8;
     font-size: 0.82rem;
     font-weight: 500;
-    letter-spacing: 0.5px;
-    margin-top: 3rem;
-    padding-top: 1.5rem;
+    margin-top: 2.5rem;
+    padding-top: 1.2rem;
     border-top: 1px solid #e2e8f0;
 }}
 </style>
@@ -274,8 +271,6 @@ div.stButton > button:hover {{
 # =========================================================
 # FUNCIONES AUXILIARES
 # =========================================================
-import base64
-
 def get_image_base64(img_path):
     if img_path.exists():
         with open(img_path, "rb") as image_file:
@@ -299,10 +294,8 @@ def render_aligned_card(titulo, desc, img_relative_path):
                 <img src="{src}" alt="{titulo}">
             </div>
             <div class="card-body">
-                <div>
-                    <div class="card-title-text">{titulo}</div>
-                    <div class="card-desc-text">{desc}</div>
-                </div>
+                <div class="card-title-text">{titulo}</div>
+                <div class="card-desc-text">{desc}</div>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -314,19 +307,19 @@ def open_panel_button(url, key):
         <div style="
             width:100%;
             text-align:center;
-            padding:12px;
+            padding:11px;
             border-radius:10px;
             font-weight:700;
-            font-size:0.9rem;
+            font-size:0.88rem;
             color:white;
             background: linear-gradient(90deg, {COLOR_NARANJA}, {COLOR_NARANJA_ACCENT});
-            box-shadow: 0 4px 14px rgba(230, 81, 0, 0.25);
+            box-shadow: 0 4px 12px rgba(230, 81, 0, 0.22);
             transition: all 0.25s ease;
         ">
             Abrir Dashboard ↗
         </div>
     </a>
-    <div style="margin-bottom:18px;"></div>
+    <div style="margin-bottom:16px;"></div>
     """, unsafe_allow_html=True)
 
 
@@ -335,14 +328,25 @@ def open_panel_button(url, key):
 # =========================================================
 if st.session_state.area is None:
 
-    st.markdown(f"""
-        <div class="hero-header">
-            <div class="brand-tag">GRUPO DON POLLO | GERENCIA DE CONTROL DE GESTIÓN</div>
-            <div class="hero-title">Ecosistema Digital • Control Interno</div>
-            <div class="hero-subtitle">Seleccione el módulo estratégico para acceder a los tableros analíticos</div>
-            <div class="title-accent"></div>
-        </div>
-    """, unsafe_allow_html=True)
+    # Encabezado con Botón Directo de Gerencia
+    col_head1, col_head2 = st.columns([3, 1])
+    
+    with col_head1:
+        st.markdown(f"""
+            <div class="hero-header">
+                <div class="brand-tag">GRUPO DON POLLO | GERENCIA DE CONTROL DE GESTIÓN</div>
+                <div class="hero-title">Ecosistema Digital • Control Interno</div>
+                <div class="hero-subtitle">Seleccione el módulo estratégico para acceder a los tableros analíticos</div>
+                <div class="title-accent"></div>
+            </div>
+        """, unsafe_allow_html=True)
+
+    with col_head2:
+        st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+        if st.button("🔐 ACCESO GERENCIA", key="ger_top_btn", use_container_width=True, help="Ingreso exclusivo para Gerencia"):
+            st.session_state.area = "Gerencia"
+            st.session_state.auth = False
+            st.rerun()
 
     col1, col2, col3 = st.columns(3, gap="medium")
 
@@ -385,10 +389,10 @@ else:
             st.markdown(f"""
             <div class="login-box">
                 <div class="brand-tag" style="text-align:center;">MÓDULO DE SEGURIDAD</div>
-                <div style="font-size:1.6rem;font-weight:800;color:{COLOR_AZUL};text-align:center;margin-bottom:4px;">
+                <div style="font-size:1.5rem;font-weight:800;color:{COLOR_AZUL};text-align:center;margin-bottom:4px;">
                     {area}
                 </div>
-                <div style="text-align:center;color:#64748b;font-size:0.9rem;">
+                <div style="text-align:center;color:#64748b;font-size:0.88rem;">
                     Ingrese su clave de acceso autorizada
                 </div>
             </div>
@@ -412,7 +416,7 @@ else:
     else:
 
         st.markdown(f"""
-            <div class="hero-header" style="padding: 1.8rem 2.2rem;">
+            <div class="hero-header" style="padding: 1.5rem 2rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <div class="brand-tag">CONTROL DE GESTIÓN • {area.upper()}</div>
@@ -430,12 +434,12 @@ else:
                 st.session_state.auth = False
                 st.rerun()
 
-        st.markdown("<div style='margin-bottom: 25px;'></div>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
 
         # ================= GERENCIA VE TODO =================
         if area == "Gerencia":
         
-            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:15px;">1. Planta de Beneficio</h3>', unsafe_allow_html=True)
+            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:12px;">1. Planta de Beneficio</h3>', unsafe_allow_html=True)
             col1, col2, col3 = st.columns(3, gap="medium")
             with col1:
                 render_aligned_card("Calidad Planta de Beneficio", "Control de procesos e higiene", "CalidadPlanta.jpg")
@@ -453,7 +457,7 @@ else:
                 open_panel_button(URL_PENDIENTE, "g_pb4")
 
             st.divider()
-            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:15px;">2. Tienda Mi Casero</h3>', unsafe_allow_html=True)
+            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:12px;">2. Tienda Mi Casero</h3>', unsafe_allow_html=True)
             col1, col2 = st.columns(2, gap="medium")
             with col1:
                 render_aligned_card("CheckList Tienda Mi Casero", "Evaluación operacional de tiendas", "ChecklistMiCasero.jpg")
@@ -463,7 +467,7 @@ else:
                 open_panel_button(URL_PENDIENTE, "g_tmc2")
 
             st.divider()
-            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:15px;">3. PAB</h3>', unsafe_allow_html=True)
+            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:12px;">3. PAB</h3>', unsafe_allow_html=True)
             col1, col2, col3 = st.columns(3, gap="medium")
             with col1:
                 render_aligned_card("Reporte de Finos", "Análisis de porcentaje de finos", "ReporteFinos.jpg")
