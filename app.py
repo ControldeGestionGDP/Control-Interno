@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # =========================================================
-# PALETA DE COLORES CORPORATIVA (DON POLLO EXECUTIVE)
+# PALETA DE COLORES CORPORATIVA
 # =========================================================
 COLOR_AZUL = "#0A3866"        # Azul Marino Premium
 COLOR_AZUL_HOVER = "#062444"  # Azul Profundo Hover
@@ -49,7 +49,7 @@ if "auth" not in st.session_state:
 
 
 # =========================================================
-# 🔐 SIDEBAR GERENCIA (RESTACADO Y MEJORADO)
+# 🔐 SIDEBAR GERENCIA
 # =========================================================
 with st.sidebar:
     st.markdown(f"""
@@ -114,17 +114,15 @@ st.markdown(f"""
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }}
 
-/* Ocultar elementos nativos de Streamlit */
 #MainMenu, footer, header {{visibility: hidden;}}
 
-/* Padding Ajustado del Contenedor Principal */
 .block-container {{
     padding-top: 1.8rem !important;
     padding-bottom: 3rem !important;
     max-width: 1200px !important;
 }}
 
-/* Header Hero Gerencial (Caja Unificada de Encabezado) */
+/* Header Hero Gerencial */
 .hero-header {{
     background: white;
     border-radius: 16px;
@@ -132,12 +130,6 @@ st.markdown(f"""
     border-top: 5px solid {COLOR_NARANJA};
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
     margin-bottom: 2rem;
-    animation: fadeInHeader 0.5s ease-in-out;
-}}
-
-@keyframes fadeInHeader {{
-    from {{ opacity: 0; transform: translateY(-8px); }}
-    to {{ opacity: 1; transform: translateY(0); }}
 }}
 
 .brand-tag {{
@@ -181,15 +173,18 @@ st.markdown(f"""
     margin-bottom: 20px;
 }}
 
-/* Tarjetas de Reportes (Cards) */
+/* Tarjetas Flexibles con Altura Fija */
 .card {{
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(0,0,0,0.04);
-    margin-bottom: 12px;
     background: white;
     border: 1px solid #e2e8f0;
     transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    display: flex;
+    flex-direction: column;
+    height: 380px; /* Altura uniforme para alineación perfecta */
+    margin-bottom: 10px;
 }}
 
 .card:hover {{
@@ -198,23 +193,49 @@ st.markdown(f"""
     border-color: {COLOR_NARANJA};
 }}
 
-.card img {{
-    border-radius: 12px 12px 0 0;
+.card-img-container {{
+    height: 180px;
+    width: 100%;
+    overflow: hidden;
+    background: #f1f5f9;
+}}
+
+.card-img-container img {{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.4s ease;
 }}
 
-.card:hover img {{
-    transform: scale(1.03);
+.card:hover .card-img-container img {{
+    transform: scale(1.04);
 }}
 
-.card-title {{
+.card-body {{
     padding: 16px;
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: {COLOR_AZUL};
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
 }}
 
-/* Botones Nativos de Streamlit */
+.card-title-text {{
+    font-weight: 800;
+    font-size: 1.08rem;
+    color: {COLOR_AZUL};
+    margin-bottom: 6px;
+}}
+
+.card-desc-text {{
+    font-weight: 400;
+    color: #64748b;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    height: 40px; /* Espacio fijo para texto */
+    overflow: hidden;
+}}
+
+/* Botones Nativos */
 div.stButton > button {{
     background-color: {COLOR_AZUL} !important;
     color: #ffffff !important;
@@ -253,29 +274,38 @@ div.stButton > button:hover {{
 # =========================================================
 # FUNCIONES AUXILIARES
 # =========================================================
-def report_card(titulo, desc, img_relative_path):
+import base64
+
+def get_image_base64(img_path):
+    if img_path.exists():
+        with open(img_path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode('utf-8')
+    return None
+
+def render_aligned_card(titulo, desc, img_relative_path):
     img_path = ASSETS_DIR / img_relative_path
     fallback = ASSETS_DIR / "default.jpg"
-
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-
-    if img_path.exists():
-        st.image(img_path.read_bytes(), use_container_width=True)
-    elif fallback.exists():
-        st.image(fallback.read_bytes(), use_container_width=True)
+    
+    b64_img = get_image_base64(img_path) or get_image_base64(fallback)
+    
+    if b64_img:
+        src = f"data:image/jpeg;base64,{b64_img}"
     else:
-        st.image("https://via.placeholder.com/800x450.png?text=Imagen+no+disponible", use_container_width=True)
+        src = "https://via.placeholder.com/800x450.png?text=Imagen+no+disponible"
 
     st.markdown(f"""
-        <div class="card-title">
-            {titulo}<br>
-            <span style="font-weight:400;color:#64748b;font-size:0.88rem;">
-                {desc}
-            </span>
+        <div class="card">
+            <div class="card-img-container">
+                <img src="{src}" alt="{titulo}">
+            </div>
+            <div class="card-body">
+                <div>
+                    <div class="card-title-text">{titulo}</div>
+                    <div class="card-desc-text">{desc}</div>
+                </div>
+            </div>
         </div>
     """, unsafe_allow_html=True)
-
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
 def open_panel_button(url, key):
@@ -305,7 +335,6 @@ def open_panel_button(url, key):
 # =========================================================
 if st.session_state.area is None:
 
-    # HERO HEADER UNIFICADO (Sin la caja blanca vacía arriba)
     st.markdown(f"""
         <div class="hero-header">
             <div class="brand-tag">GRUPO DON POLLO | GERENCIA DE CONTROL DE GESTIÓN</div>
@@ -318,27 +347,27 @@ if st.session_state.area is None:
     col1, col2, col3 = st.columns(3, gap="medium")
 
     with col1:
-        report_card("Planta de Beneficio",
-                    "Aseguramiento, rendimientos y calidad de planta",
-                    "PlantaBeneficio.jpg")
+        render_aligned_card("Planta de Beneficio",
+                             "Aseguramiento, rendimientos y calidad de planta",
+                             "PlantaBeneficio.jpg")
         if st.button("Ingresar al Área", key="pb", use_container_width=True):
             st.session_state.area = "Planta de Beneficio"
             st.session_state.auth = False
             st.rerun()
 
     with col2:
-        report_card("Tienda Mi Casero",
-                    "Auditoría, checklists y planes de mejora en tiendas",
-                    "TiendaMiCasero.jpg")
+        render_aligned_card("Tienda Mi Casero",
+                             "Auditoría, checklists y planes de mejora en tiendas",
+                             "TiendaMiCasero.jpg")
         if st.button("Ingresar al Área", key="tmc", use_container_width=True):
             st.session_state.area = "Tienda Mi Casero"
             st.session_state.auth = False
             st.rerun()
 
     with col3:
-        report_card("PAB",
-                    "Monitoreo de finos, granulometría y PDI",
-                    "PAB.jpg")
+        render_aligned_card("PAB",
+                             "Monitoreo de finos, granulometría y PDI",
+                             "PAB.jpg")
         if st.button("Ingresar al Área", key="pab", use_container_width=True):
             st.session_state.area = "PAB"
             st.session_state.auth = False
@@ -382,7 +411,6 @@ else:
 
     else:
 
-        # Header de Vista Protegida por Área
         st.markdown(f"""
             <div class="hero-header" style="padding: 1.8rem 2.2rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -410,41 +438,41 @@ else:
             st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:15px;">1. Planta de Beneficio</h3>', unsafe_allow_html=True)
             col1, col2, col3 = st.columns(3, gap="medium")
             with col1:
-                report_card("Calidad Planta de Beneficio", "Control de procesos e higiene", "CalidadPlanta.jpg")
+                render_aligned_card("Calidad Planta de Beneficio", "Control de procesos e higiene", "CalidadPlanta.jpg")
                 open_panel_button("https://app.powerbi.com/links/bjtEfCK9QD?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "g_pb1")
             with col2:
-                report_card("Hígado Descarte", "Seguimiento y merma de descarte", "HigadoDescarte.jpg")
+                render_aligned_card("Hígado Descarte", "Seguimiento y merma de descarte", "HigadoDescarte.jpg")
                 open_panel_button("https://app.powerbi.com/links/hyk8FNTUbL?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "g_pb2")
             with col3:
-                report_card("Reclamos Internos", "Registro de no conformidades internas", "ReclamosInternos.jpg")
+                render_aligned_card("Reclamos Internos", "Registro de no conformidades internas", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pb3")
             
             col_g1, col_g2, col_g3 = st.columns(3, gap="medium")
             with col_g1:
-                report_card("Reclamos Externos", "Gestión de reclamos de clientes", "ReclamosExternos.jpg")
+                render_aligned_card("Reclamos Externos", "Gestión de reclamos de clientes", "ReclamosExternos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pb4")
 
             st.divider()
             st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:15px;">2. Tienda Mi Casero</h3>', unsafe_allow_html=True)
             col1, col2 = st.columns(2, gap="medium")
             with col1:
-                report_card("CheckList Tienda Mi Casero", "Evaluación operacional de tiendas", "ChecklistMiCasero.jpg")
+                render_aligned_card("CheckList Tienda Mi Casero", "Evaluación operacional de tiendas", "ChecklistMiCasero.jpg")
                 open_panel_button("https://app.powerbi.com/links/4HbKF8s_Vp?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "g_tmc1")
             with col2:
-                report_card("Planes de Mejora", "Acciones correctivas y seguimiento", "PlanesMejora.jpg")
+                render_aligned_card("Planes de Mejora", "Acciones correctivas y seguimiento", "PlanesMejora.jpg")
                 open_panel_button(URL_PENDIENTE, "g_tmc2")
 
             st.divider()
             st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:15px;">3. PAB</h3>', unsafe_allow_html=True)
             col1, col2, col3 = st.columns(3, gap="medium")
             with col1:
-                report_card("Reporte de Finos", "Análisis de porcentaje de finos", "ReporteFinos.jpg")
+                render_aligned_card("Reporte de Finos", "Análisis de porcentaje de finos", "ReporteFinos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pab1")
             with col2:
-                report_card("Reporte de Granulometría", "Control de tamaño de partícula", "Granulometria.jpg")
+                render_aligned_card("Reporte de Granulometría", "Control de tamaño de partícula", "Granulometria.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pab2")
             with col3:
-                report_card("Reporte de PDI", "Índice de durabilidad del pellet", "ReportePDI.jpg")
+                render_aligned_card("Reporte de PDI", "Índice de durabilidad del pellet", "ReportePDI.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pab3")
 
         # ================= PLANTA DE BENEFICIO =================
@@ -452,18 +480,18 @@ else:
 
             col1, col2, col3 = st.columns(3, gap="medium")
             with col1:
-                report_card("Calidad Planta de Beneficio", "Control de procesos e higiene", "CalidadPlanta.jpg")
+                render_aligned_card("Calidad Planta de Beneficio", "Control de procesos e higiene", "CalidadPlanta.jpg")
                 open_panel_button("https://app.powerbi.com/links/bjtEfCK9QD?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "pb1")
             with col2:
-                report_card("Hígado Descarte", "Seguimiento y merma de descarte", "HigadoDescarte.jpg")
+                render_aligned_card("Hígado Descarte", "Seguimiento y merma de descarte", "HigadoDescarte.jpg")
                 open_panel_button("https://app.powerbi.com/links/hyk8FNTUbL?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "pb2")
             with col3:
-                report_card("Reclamos Internos", "Registro de no conformidades internas", "ReclamosInternos.jpg")
+                render_aligned_card("Reclamos Internos", "Registro de no conformidades internas", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "pb3")
             
             col4, col5, col6 = st.columns(3, gap="medium")
             with col4:
-                report_card("Reclamos Externos", "Gestión de reclamos de clientes", "ReclamosExternos.jpg")
+                render_aligned_card("Reclamos Externos", "Gestión de reclamos de clientes", "ReclamosExternos.jpg")
                 open_panel_button(URL_PENDIENTE, "pb4")
 
         # ================= TIENDA MI CASERO =================
@@ -471,10 +499,10 @@ else:
 
             col1, col2 = st.columns(2, gap="medium")
             with col1:
-                report_card("CheckList Tienda Mi Casero", "Evaluación operacional de tiendas", "ChecklistMiCasero.jpg")
+                render_aligned_card("CheckList Tienda Mi Casero", "Evaluación operacional de tiendas", "ChecklistMiCasero.jpg")
                 open_panel_button("https://app.powerbi.com/links/4HbKF8s_Vp?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "tmc1")
             with col2:
-                report_card("Planes de Mejora", "Acciones correctivas y seguimiento", "PlanesMejora.jpg")
+                render_aligned_card("Planes de Mejora", "Acciones correctivas y seguimiento", "PlanesMejora.jpg")
                 open_panel_button(URL_PENDIENTE, "tmc2")
 
         # ================= PAB =================
@@ -482,13 +510,13 @@ else:
 
             col1, col2, col3 = st.columns(3, gap="medium")
             with col1:
-                report_card("Reporte de Finos", "Análisis de porcentaje de finos", "ReporteFinos.jpg")
+                render_aligned_card("Reporte de Finos", "Análisis de porcentaje de finos", "ReporteFinos.jpg")
                 open_panel_button(URL_PENDIENTE, "pab1")
             with col2:
-                report_card("Reporte de Granulometría", "Control de tamaño de partícula", "Granulometria.jpg")
+                render_aligned_card("Reporte de Granulometría", "Control de tamaño de partícula", "Granulometria.jpg")
                 open_panel_button(URL_PENDIENTE, "pab2")
             with col3:
-                report_card("Reporte de PDI", "Índice de durabilidad del pellet", "ReportePDI.jpg")
+                render_aligned_card("Reporte de PDI", "Índice de durabilidad del pellet", "ReportePDI.jpg")
                 open_panel_button(URL_PENDIENTE, "pab3")
 
 
