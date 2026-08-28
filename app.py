@@ -5,20 +5,20 @@ from pathlib import Path
 # CONFIGURACIÓN DE PÁGINA
 # =========================================================
 st.set_page_config(
-    page_title="Control Interno | Grupo Don Pollo",
+    page_title="Control Interno • GDP",
     page_icon="🔍",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
 # =========================================================
-# PALETA DE COLORES CORPORATIVA (AZUL & NARANJA GDP)
+# PALETA DE COLORES CORPORATIVA (DON POLLO EXECUTIVE)
 # =========================================================
-COLOR_AZUL = "#094780"     # Azul Primario Corporativo
-COLOR_AZUL_HOVER = "#073663" # Azul Oscuro para Hover
-COLOR_NARANJA = "#ED701B"  # Naranja Acento Corporativo
-COLOR_NARANJA_HOVER = "#D95E0D"
-COLOR_BG = "#F6F6F6"       # Gris Claro Ejecutivo
+COLOR_AZUL = "#0A3866"        # Azul Marino Premium
+COLOR_AZUL_HOVER = "#062444"  # Azul Profundo Hover
+COLOR_NARANJA = "#E65100"     # Naranja Corporativo GDP
+COLOR_NARANJA_ACCENT = "#F57C00"
+COLOR_BG = "#F4F6FB"          # Gris Claro Ejecutivo
 
 URL_PENDIENTE = "https://app.powerbi.com"
 
@@ -49,17 +49,17 @@ if "auth" not in st.session_state:
 
 
 # =========================================================
-# 🔐 SIDEBAR GERENCIAL MEJORADO
+# 🔐 SIDEBAR GERENCIA (RESTACADO Y MEJORADO)
 # =========================================================
 with st.sidebar:
     st.markdown(f"""
     <style>
     .executive-card-sidebar {{
         background: white;
-        border-radius: 10px;
-        padding: 20px;
-        border-top: 4px solid {COLOR_AZUL};
-        box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+        border-radius: 14px;
+        padding: 22px 18px;
+        border-top: 4px solid {COLOR_NARANJA};
+        box-shadow: 0 8px 20px rgba(0,0,0,0.04);
         text-align: center;
         margin-bottom: 20px;
     }}
@@ -69,31 +69,32 @@ with st.sidebar:
         margin-bottom: 4px;
         font-size: 1.1rem;
         letter-spacing: -0.3px;
+        text-transform: uppercase;
     }}
     .exe-status-sidebar {{
         display: inline-block;
         padding: 3px 12px;
         background: #FEE2E2;
-        color: #EF4444;
+        color: #DC2626;
         border-radius: 12px;
         font-size: 0.72rem;
-        font-weight: 700;
+        font-weight: 800;
         margin-bottom: 12px;
         letter-spacing: 0.5px;
     }}
     </style>
     
     <div class="executive-card-sidebar">
-        <div style="font-size: 2.2rem; margin-bottom: 8px;">🔍</div>
+        <div style="font-size: 2.2rem; margin-bottom: 6px;">🔍</div>
         <div class="exe-title-sidebar">Panel Ejecutivo</div>
         <div class="exe-status-sidebar">● ACCESO RESTRINGIDO</div>
-        <p style="color: #64748b; font-size: 0.85rem; line-height: 1.4; margin-top: 5px;">
+        <p style="color: #64748b; font-size: 0.83rem; line-height: 1.45; margin-top: 4px;">
             Ecosistema de Control Interno consolidado en una sola vista estratégica.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    if st.button("INGRESAR GERENCIA", use_container_width=True, help="Solo personal autorizado"):
+    if st.button("INGRESAR A GERENCIA", use_container_width=True, help="Solo personal autorizado"):
         st.session_state.area = "Gerencia"
         st.session_state.auth = False
         st.rerun()
@@ -103,104 +104,109 @@ with st.sidebar:
 
 
 # =========================================================
-# ESTILOS CSS ALTA GAMA GERENCIAL (PLANTILLA UNIFICADA)
+# ESTILOS VISUALES ALTA GAMA (CSS UNIFICADO)
 # =========================================================
 st.markdown(f"""
 <style>
 /* Estructura Global */
 .stApp {{
     background-color: {COLOR_BG};
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }}
 
-/* Ocultar elementos nativos */
+/* Ocultar elementos nativos de Streamlit */
 #MainMenu, footer, header {{visibility: hidden;}}
 
-/* Contenedor Principal Flotante (Card Ejecutivo) */
+/* Padding Ajustado del Contenedor Principal */
 .block-container {{
-    padding-top: 2rem !important;
+    padding-top: 1.8rem !important;
     padding-bottom: 3rem !important;
-    max-width: 1180px !important;
+    max-width: 1200px !important;
 }}
 
-.main-card {{
-    background-color: #ffffff;
-    border-radius: 12px;
-    border-top: 4px solid {COLOR_NARANJA};
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-    padding: 2.5rem;
-    margin-bottom: 1.5rem;
-    animation: fadeInCard 0.5s ease;
+/* Header Hero Gerencial (Caja Unificada de Encabezado) */
+.hero-header {{
+    background: white;
+    border-radius: 16px;
+    padding: 2.2rem 2.5rem;
+    border-top: 5px solid {COLOR_NARANJA};
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    margin-bottom: 2rem;
+    animation: fadeInHeader 0.5s ease-in-out;
 }}
 
-@keyframes fadeInCard {{
-    from {{ opacity: 0; transform: translateY(12px); }}
+@keyframes fadeInHeader {{
+    from {{ opacity: 0; transform: translateY(-8px); }}
     to {{ opacity: 1; transform: translateY(0); }}
 }}
 
-/* Encabezados Corporativos */
 .brand-tag {{
     color: {COLOR_NARANJA};
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1.8px;
     text-transform: uppercase;
+    margin-bottom: 0.4rem;
+}}
+
+.hero-title {{
+    color: {COLOR_AZUL};
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.8px;
     margin-bottom: 0.3rem;
 }}
-.header-title {{
-    color: {COLOR_AZUL};
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 0.2rem;
-}}
-.header-subtitle {{
+
+.hero-subtitle {{
     color: #64748b;
-    font-size: 0.95rem;
+    font-size: 0.98rem;
     font-weight: 400;
-    margin-bottom: 1.8rem;
 }}
 
 .title-accent {{
     height: 4px;
-    width: 100px;
+    width: 90px;
     background: linear-gradient(90deg, {COLOR_AZUL}, {COLOR_NARANJA});
     border-radius: 4px;
-    margin-bottom: 24px;
+    margin-top: 14px;
 }}
 
-/* Login Box */
+/* Login Box Estilizado */
 .login-box {{
     background: white;
     padding: 35px;
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-    border-top: 4px solid {COLOR_AZUL};
-    animation: fadeInCard 0.4s ease;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    border-top: 5px solid {COLOR_AZUL};
+    margin-bottom: 20px;
 }}
 
-/* Tarjetas de Reportes */
+/* Tarjetas de Reportes (Cards) */
 .card {{
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
     margin-bottom: 12px;
     background: white;
     border: 1px solid #e2e8f0;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(.4,0,.2,1);
 }}
+
 .card:hover {{
     transform: translateY(-6px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.09);
     border-color: {COLOR_NARANJA};
 }}
+
 .card img {{
-    border-radius: 10px 10px 0 0;
+    border-radius: 12px 12px 0 0;
     transition: transform 0.4s ease;
 }}
+
 .card:hover img {{
     transform: scale(1.03);
 }}
+
 .card-title {{
     padding: 16px;
     font-weight: 700;
@@ -208,35 +214,36 @@ st.markdown(f"""
     color: {COLOR_AZUL};
 }}
 
-/* Botones Principales (Azul Corporativo) */
+/* Botones Nativos de Streamlit */
 div.stButton > button {{
     background-color: {COLOR_AZUL} !important;
     color: #ffffff !important;
     border: none !important;
-    border-radius: 8px !important;
-    padding: 0.65rem 1.8rem !important;
-    font-size: 0.9rem !important;
+    border-radius: 10px !important;
+    padding: 0.7rem 1.5rem !important;
+    font-size: 0.92rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.3px !important;
     width: 100% !important;
-    box-shadow: 0 4px 12px rgba(9, 71, 128, 0.15) !important;
-    transition: all 0.2s ease !important;
+    box-shadow: 0 4px 14px rgba(10, 56, 102, 0.15) !important;
+    transition: all 0.25s ease !important;
 }}
+
 div.stButton > button:hover {{
     background-color: {COLOR_AZUL_HOVER} !important;
-    box-shadow: 0 6px 16px rgba(9, 71, 128, 0.25) !important;
+    box-shadow: 0 8px 20px rgba(10, 56, 102, 0.25) !important;
     transform: translateY(-2px);
 }}
 
-/* Footer Ejecutivo */
+/* Footer */
 .custom-footer {{
     text-align: center;
     color: #94a3b8;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 500;
     letter-spacing: 0.5px;
-    margin-top: 2rem;
-    padding-top: 1.2rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
     border-top: 1px solid #e2e8f0;
 }}
 </style>
@@ -244,7 +251,7 @@ div.stButton > button:hover {{
 
 
 # =========================================================
-# FUNCIONES REUTILIZABLES
+# FUNCIONES AUXILIARES
 # =========================================================
 def report_card(titulo, desc, img_relative_path):
     img_path = ASSETS_DIR / img_relative_path
@@ -277,34 +284,35 @@ def open_panel_button(url, key):
         <div style="
             width:100%;
             text-align:center;
-            padding:11px;
-            border-radius:8px;
+            padding:12px;
+            border-radius:10px;
             font-weight:700;
             font-size:0.9rem;
             color:white;
-            background: linear-gradient(90deg, {COLOR_NARANJA}, {COLOR_NARANJA_HOVER});
-            box-shadow: 0 4px 12px rgba(237, 112, 27, 0.2);
-            transition: all 0.2s ease;
+            background: linear-gradient(90deg, {COLOR_NARANJA}, {COLOR_NARANJA_ACCENT});
+            box-shadow: 0 4px 14px rgba(230, 81, 0, 0.25);
+            transition: all 0.25s ease;
         ">
             Abrir Dashboard ↗
         </div>
     </a>
-    <div style="margin-bottom:15px;"></div>
+    <div style="margin-bottom:18px;"></div>
     """, unsafe_allow_html=True)
 
 
 # =========================================================
-# ESTRUCTURA PRINCIPAL DEL PORTAL
+# CONTENIDO DEL PORTAL
 # =========================================================
-st.markdown('<div class="main-card">', unsafe_allow_html=True)
-
 if st.session_state.area is None:
 
+    # HERO HEADER UNIFICADO (Sin la caja blanca vacía arriba)
     st.markdown(f"""
-        <div class="brand-tag">GRUPO DON POLLO | GERENCIA DE CONTROL DE GESTIÓN</div>
-        <div class="header-title">Ecosistema Digital • Control Interno</div>
-        <div class="header-subtitle">Seleccione el módulo estratégico para acceder a los tableros analíticos</div>
-        <div class="title-accent"></div>
+        <div class="hero-header">
+            <div class="brand-tag">GRUPO DON POLLO | GERENCIA DE CONTROL DE GESTIÓN</div>
+            <div class="hero-title">Ecosistema Digital • Control Interno</div>
+            <div class="hero-subtitle">Seleccione el módulo estratégico para acceder a los tableros analíticos</div>
+            <div class="title-accent"></div>
+        </div>
     """, unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3, gap="medium")
@@ -342,16 +350,16 @@ else:
 
     if not st.session_state.auth:
 
-        col1, col2, col3 = st.columns([1,2,1])
+        col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
 
             st.markdown(f"""
             <div class="login-box">
-                <div class="brand-tag" style="text-align:center;">MÓDULO SEGURO</div>
-                <div style="font-size:1.5rem;font-weight:800;color:{COLOR_AZUL};text-align:center;margin-bottom:4px;">
+                <div class="brand-tag" style="text-align:center;">MÓDULO DE SEGURIDAD</div>
+                <div style="font-size:1.6rem;font-weight:800;color:{COLOR_AZUL};text-align:center;margin-bottom:4px;">
                     {area}
                 </div>
-                <div style="text-align:center;color:#64748b;font-size:0.9rem;margin-bottom:20px;">
+                <div style="text-align:center;color:#64748b;font-size:0.9rem;">
                     Ingrese su clave de acceso autorizada
                 </div>
             </div>
@@ -374,21 +382,32 @@ else:
 
     else:
 
-        col_title, col_back = st.columns([3, 1])
-        with col_title:
-            st.markdown(f'<div class="brand-tag">CONTROL INTERNO</div>', unsafe_allow_html=True)
-            st.markdown(f'<div class="header-title">{area}</div>', unsafe_allow_html=True)
-            st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
+        # Header de Vista Protegida por Área
+        st.markdown(f"""
+            <div class="hero-header" style="padding: 1.8rem 2.2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div class="brand-tag">CONTROL DE GESTIÓN • {area.upper()}</div>
+                        <div class="hero-title" style="margin-bottom:0;">Tableros Operativos</div>
+                    </div>
+                </div>
+                <div class="title-accent"></div>
+            </div>
+        """, unsafe_allow_html=True)
+
+        col_back, _ = st.columns([1, 4])
         with col_back:
-            if st.button("← Cambiar área", use_container_width=True):
+            if st.button("← Cambiar módulo", use_container_width=True):
                 st.session_state.area = None
                 st.session_state.auth = False
                 st.rerun()
 
+        st.markdown("<div style='margin-bottom: 25px;'></div>", unsafe_allow_html=True)
+
         # ================= GERENCIA VE TODO =================
         if area == "Gerencia":
         
-            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:700;">1. Planta de Beneficio</h3>', unsafe_allow_html=True)
+            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:15px;">1. Planta de Beneficio</h3>', unsafe_allow_html=True)
             col1, col2, col3 = st.columns(3, gap="medium")
             with col1:
                 report_card("Calidad Planta de Beneficio", "Control de procesos e higiene", "CalidadPlanta.jpg")
@@ -406,7 +425,7 @@ else:
                 open_panel_button(URL_PENDIENTE, "g_pb4")
 
             st.divider()
-            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:700;">2. Tienda Mi Casero</h3>', unsafe_allow_html=True)
+            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:15px;">2. Tienda Mi Casero</h3>', unsafe_allow_html=True)
             col1, col2 = st.columns(2, gap="medium")
             with col1:
                 report_card("CheckList Tienda Mi Casero", "Evaluación operacional de tiendas", "ChecklistMiCasero.jpg")
@@ -416,7 +435,7 @@ else:
                 open_panel_button(URL_PENDIENTE, "g_tmc2")
 
             st.divider()
-            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:700;">3. PAB</h3>', unsafe_allow_html=True)
+            st.markdown(f'<h3 style="color:{COLOR_AZUL};font-weight:800;margin-bottom:15px;">3. PAB</h3>', unsafe_allow_html=True)
             col1, col2, col3 = st.columns(3, gap="medium")
             with col1:
                 report_card("Reporte de Finos", "Análisis de porcentaje de finos", "ReporteFinos.jpg")
@@ -472,7 +491,6 @@ else:
                 report_card("Reporte de PDI", "Índice de durabilidad del pellet", "ReportePDI.jpg")
                 open_panel_button(URL_PENDIENTE, "pab3")
 
-st.markdown('</div>', unsafe_allow_html=True) # Cierre del main-card
 
 # =========================================================
 # FOOTER CORPORATIVO
