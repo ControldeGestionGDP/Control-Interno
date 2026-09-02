@@ -124,7 +124,7 @@ with st.sidebar:
     </style>
     
     <div class="executive-card-sidebar">
-        <div style="font-size: 2.5rem; margin-bottom: 10px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));">🔍</div>
+        <div style="font-size: 2.5rem; margin-bottom: 10px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));"></div>
         <div class="exe-title-sidebar">Panel Ejecutivo</div>
         <div class="exe-status-sidebar"><span class="pulse-dot"></span> ACCESO RESTRINGIDO</div>
         <p style="color: #475569; font-size: 0.85rem; line-height: 1.5; margin-top: 6px; font-weight: 400;">
