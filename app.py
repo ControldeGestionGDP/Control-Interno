@@ -556,7 +556,7 @@ st.markdown(f"""
         color: #94a3b8;
         font-weight: 500;
     ">
-        © 2026 Ecosistema Digital de Indicadores. Todos los derechos reservados.
+        © 2026 Ecosistema Digital de Reportes. Todos los derechos reservados.
     </div>
 </div>
 """, unsafe_allow_html=True)
