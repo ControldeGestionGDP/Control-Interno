@@ -19,12 +19,13 @@ else:
     icon_image = "🔍"
 
 # =========================================================
-# CONFIG
+# CONFIG (AQUÍ DEFINIMOS QUE INICIE O SE MANTENGA PLEGADO)
 # =========================================================
 st.set_page_config(
     page_title="Control Interno • GDP",
     page_icon=icon_image,
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"  # <-- Inicia retraído por defecto
 )
 
 # Paleta Verde Corporativa Ultra-Premium
@@ -54,23 +55,30 @@ if "area" not in st.session_state:
 if "auth" not in st.session_state:
     st.session_state.auth = False
 
+if "collapse_sidebar" not in st.session_state:
+    st.session_state.collapse_sidebar = False
+
 
 # =========================================================
-# FUNCIÓN PARA CONTRAER SIDEBAR AUTOMÁTICAMENTE
+# SCRIPT PARA FORZAR EL CIERRE
 # =========================================================
-def close_sidebar():
+if st.session_state.collapse_sidebar:
     components.html(
         """
         <script>
-            const sidebarBtn = window.parent.document.querySelector('[data-testid="stSidebarCollapseButton"]');
-            if (sidebarBtn) {
-                sidebarBtn.click();
+            var sidebar = window.parent.document.querySelector('[data-testid="stSidebar"]');
+            var button = window.parent.document.querySelector('[data-testid="stSidebarCollapseButton"]');
+            if (sidebar && sidebar.getAttribute('aria-expanded') === 'true') {
+                if (button) {
+                    button.click();
+                }
             }
         </script>
         """,
         height=0,
-        width=0,
+        width=0
     )
+    st.session_state.collapse_sidebar = False
 
 
 # =========================================================
@@ -149,7 +157,7 @@ with st.sidebar:
     if st.button("INGRESAR", use_container_width=True, help="Solo personal autorizado"):
         st.session_state.area = "Gerencia"
         st.session_state.auth = False
-        close_sidebar()  # <--- CIERRA EL SIDEBAR AL HACER CLIC
+        st.session_state.collapse_sidebar = True  # Marca la orden de retraer
         st.rerun()
     
     st.markdown("---")
