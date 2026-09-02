@@ -143,25 +143,25 @@ html, body, [class*="css"] {{
     line-height: 1.4;
 }}
 
-/* BOTÓN ACCESO GERENCIAL ESTILO NAV (PILL BUTTON) */
+/* BOTÓN ACCESO GERENCIAL ESTILO PLOMO ELEGANTE / SLATE */
 div[data-testid="stColumn"] > div > div > div > button[key="btn_open_modal"] {{
-    background: rgba(11, 83, 52, 0.08) !important;
-    color: {COLOR1} !important;
-    border: 1.5px solid rgba(11, 83, 52, 0.25) !important;
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border: 1.5px solid #cbd5e1 !important;
     border-radius: 99px !important;
     height: 42px !important;
     font-size: 0.88rem !important;
     font-weight: 700 !important;
-    box-shadow: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
     backdrop-filter: blur(8px);
-    transition: all 0.3s ease !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }}
 
 div[data-testid="stColumn"] > div > div > div > button[key="btn_open_modal"]:hover {{
-    background: {COLOR1} !important;
-    color: #ffffff !important;
-    border-color: {COLOR1} !important;
-    box-shadow: 0 8px 20px rgba(11, 83, 52, 0.25) !important;
+    background: #e2e8f0 !important;
+    color: #0f172a !important;
+    border-color: #94a3b8 !important;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08) !important;
     transform: translateY(-2px) !important;
 }}
 
@@ -374,7 +374,7 @@ if st.session_state.area is None:
         st.markdown('<div class="subtitle">Seleccione el área estratégica para desplegar indicadores</div>', unsafe_allow_html=True)
     
     with nav_col2:
-        # Botón estilo Pill/Badge perfectamente integrado arriba
+        # Botón estilo Pill/Badge plomo perfectamente integrado arriba
         if st.button("🔒 Acceso Gerencial", key="btn_open_modal", use_container_width=True):
             modal_gerencia()
 
