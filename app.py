@@ -66,7 +66,7 @@ st.markdown("""
 
 
 # =========================================================
-# ESTILOS VISUALES
+# ESTILOS VISUALES ULTRA-ESTÉTICOS
 # =========================================================
 st.markdown(f"""
 <style>
@@ -146,16 +146,29 @@ html, body, [class*="css"] {{
     line-height: 1.4;
 }}
 
-/* ESTILOS DEL PANEL FLOTANTE EN MODAL */
+/* ESTILIZACIÓN PREMIUM DEL MODAL NATIVO */
+div[data-testid="stDialog"] > div {{
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(24px) !important;
+    border-radius: 28px !important;
+    border: 1px solid rgba(11, 83, 52, 0.15) !important;
+    box-shadow: 0 30px 60px -12px rgba(11, 83, 52, 0.25) !important;
+    padding: 32px !important;
+}}
+
+div[data-testid="stDialog"] header {{
+    background: transparent !important;
+}}
+
 .exe-modal-header {{
     text-align: center;
-    padding: 10px 0;
+    padding-bottom: 8px;
 }}
 
 .exe-title-modal {{
     font-weight: 800;
     color: {COLOR1};
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     margin-bottom: 6px;
@@ -166,7 +179,7 @@ html, body, [class*="css"] {{
     align-items: center;
     gap: 6px;
     padding: 4px 14px;
-    background: rgba(254, 226, 226, 0.8);
+    background: rgba(254, 226, 226, 0.85);
     color: #dc2626;
     border: 1px solid rgba(252, 165, 165, 0.6);
     border-radius: 20px;
@@ -300,25 +313,30 @@ def open_panel_button(url, key):
 
 
 # =========================================================
-# MODAL DE DIÁLOGO FLOTANTE PARA GERENCIA
+# MODAL CON ACCESO DIRECTO Y CONTRASEÑA INCORPORADA
 # =========================================================
-@st.dialog("🔒 Acceso Restringido")
+@st.dialog(" ")
 def modal_gerencia():
     st.markdown("""
         <div class="exe-modal-header">
-            <div style="font-size: 2.5rem; margin-bottom: 6px;">🔑</div>
+            <div style="font-size: 2.8rem; margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));">🔑</div>
             <div class="exe-title-modal">Panel Ejecutivo</div>
             <div class="exe-badge-modal"><span class="pulse-dot"></span> ACCESO GERENCIAL</div>
-            <p style="color: #64748b; font-size: 0.88rem; margin-top: 4px;">
-                Ecosistema de Control Interno consolidado en una sola vista estratégica.
+            <p style="color: #64748b; font-size: 0.88rem; margin-top: 4px; font-weight: 500;">
+                Ingrese su clave restringida para desplegar el panel consolidado.
             </p>
         </div>
     """, unsafe_allow_html=True)
     
-    if st.button("INGRESAR Y ACCEDER", use_container_width=True, key="btn_confirmar_modal"):
-        st.session_state.area = "Gerencia"
-        st.session_state.auth = False
-        st.rerun()
+    pwd = st.text_input("Contraseña Gerencial", type="password", placeholder="••••••••", key="modal_pwd_input")
+
+    if st.button("INGRESAR AL PANEL", use_container_width=True, key="btn_confirmar_modal"):
+        if pwd == PASSWORDS["Gerencia"]:
+            st.session_state.area = "Gerencia"
+            st.session_state.auth = True
+            st.rerun()
+        else:
+            st.error("Contraseña incorrecta")
 
 
 # =========================================================
@@ -326,7 +344,7 @@ def modal_gerencia():
 # =========================================================
 if st.session_state.area is None:
 
-    # Encabezado principal con botón discreto a la derecha
+    # ENCABEZADO CON BOTÓN CON ESTILO GERENCIAL
     head_col1, head_col2 = st.columns([3, 1], vertical_alignment="bottom")
     
     with head_col1:
@@ -334,8 +352,7 @@ if st.session_state.area is None:
         st.markdown('<div class="subtitle">Seleccione el área estratégica para desplegar indicadores</div>', unsafe_allow_html=True)
     
     with head_col2:
-        # Botón sutil para gerencia
-        if st.button("🔒 Gerencial", key="btn_open_modal"):
+        if st.button("🔑 Acceso Gerencial", key="btn_open_modal"):
             modal_gerencia()
 
     st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
