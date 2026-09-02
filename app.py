@@ -549,7 +549,7 @@ st.markdown(f"""
         letter-spacing: 0.3px;
         margin-bottom: 4px;
     ">
-        Gerencia de Control de Gestión <span style="color: {COLOR1}; font-weight: 800;">•</span> Grupo Don Pollo
+        Gerencia de Planeamiento Estratégico <span style="color: {COLOR1}; font-weight: 800;">•</span> Grupo Don Pollo
     </div>
     <div style="
         font-size: 0.78rem;
