@@ -18,13 +18,13 @@ else:
     icon_image = "🔍"
 
 # =========================================================
-# CONFIGURACIÓN DE PÁGINA
+# CONFIGURACIÓN DE PÁGINA (SIN SIDEBAR)
 # =========================================================
 st.set_page_config(
     page_title="Control Interno • GDP",
     page_icon=icon_image,
     layout="wide",
-    initial_sidebar_state="collapsed"  # Mantiene la barra contraída por defecto
+    initial_sidebar_state="collapsed"
 )
 
 # Paleta Verde Corporativa Ultra-Premium
@@ -54,67 +54,15 @@ if "auth" not in st.session_state:
 
 
 # =========================================================
-# SIDEBAR GERENCIA (USANDO POPOVER NATIVO QUE CIERRA SOLO)
+# OCULTAR BARRA LATERAL COMPLETAMENTE
 # =========================================================
-with st.sidebar:
-    st.markdown(f"""
-    <style>
-    .exe-title-sidebar {{
-        font-weight: 800;
-        color: {COLOR1};
-        margin-bottom: 6px;
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        text-align: center;
-    }}
-    .exe-status-sidebar {{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        padding: 4px 14px;
-        background: rgba(254, 226, 226, 0.8);
-        color: #dc2626;
-        border: 1px solid rgba(252, 165, 165, 0.6);
-        border-radius: 20px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.6px;
-        margin: 0 auto 12px auto;
-        width: fit-content;
-    }}
-    .pulse-dot {{
-        width: 6px;
-        height: 6px;
-        background-color: #dc2626;
-        border-radius: 50%;
-        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
-        animation: pulse 1.8s infinite;
-    }}
-    @keyframes pulse {{
-        0% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }}
-        70% {{ transform: scale(1); box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }}
-        100% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }}
-    }}
-    </style>
-    """, unsafe_allow_html=True)
-
-    st.subheader("Acceso Restringido")
-
-    # Usamos popover: al hacer clic en Ingresar dentro del menú emergente, este se cierra solo y recarga la página principal
-    with st.popover("🔑 Panel Ejecutivo", use_container_width=True):
-        st.markdown('<div class="exe-title-sidebar">Panel Ejecutivo</div>', unsafe_allow_html=True)
-        st.markdown('<div class="exe-status-sidebar"><span class="pulse-dot"></span> ACCESO RESTRINGIDO</div>', unsafe_allow_html=True)
-        st.caption("Ecosistema de Control Interno consolidado en una sola vista estratégica.")
-        
-        if st.button("INGRESAR Y ACCEDER", use_container_width=True, key="btn_ingresar_gerencia"):
-            st.session_state.area = "Gerencia"
-            st.session_state.auth = False
-            st.rerun()
-
-    st.markdown("---")
-    st.caption("© 2026 • Grupo Don Pollo")
+st.markdown("""
+<style>
+[data-testid="stSidebar"], [data-testid="stSidebarCollapseButton"] {
+    display: none !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 # =========================================================
@@ -161,6 +109,7 @@ html, body, [class*="css"] {{
     box-shadow: 0 4px 12px rgba(11, 83, 52, 0.25);
 }}
 
+/* TARJETAS PRINCIPALES */
 .card {{
     border-radius: 20px;
     overflow: hidden;
@@ -197,6 +146,51 @@ html, body, [class*="css"] {{
     line-height: 1.4;
 }}
 
+/* ESTILOS DEL PANEL FLOTANTE EN MODAL */
+.exe-modal-header {{
+    text-align: center;
+    padding: 10px 0;
+}}
+
+.exe-title-modal {{
+    font-weight: 800;
+    color: {COLOR1};
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+}}
+
+.exe-badge-modal {{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    background: rgba(254, 226, 226, 0.8);
+    color: #dc2626;
+    border: 1px solid rgba(252, 165, 165, 0.6);
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    margin-bottom: 12px;
+}}
+
+.pulse-dot {{
+    width: 6px;
+    height: 6px;
+    background-color: #dc2626;
+    border-radius: 50%;
+    animation: pulse 1.8s infinite;
+}}
+
+@keyframes pulse {{
+    0% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }}
+    70% {{ transform: scale(1); box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }}
+    100% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }}
+}}
+
+/* BOTONES GENERALES */
 div.stButton > button {{
     width: 100%;
     background: linear-gradient(135deg, {COLOR1} 0%, #0d633e 100%);
@@ -217,6 +211,7 @@ div.stButton > button:hover {{
     background: linear-gradient(135deg, #0e613d 0%, #15803d 100%);
 }}
 
+/* LOGIN BOX */
 .login-box {{
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(20px);
@@ -298,10 +293,32 @@ def open_panel_button(url, key):
             gap: 8px;
         " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(11, 83, 52, 0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 16px rgba(11, 83, 52, 0.2)';" >
             <span>Abrir Dashboard</span>
-            <span style="font-size: 1.1rem; transition: transform 0.2s ease;">→</span>
+            <span style="font-size: 1.1rem;">→</span>
         </div>
     </a>
     """, unsafe_allow_html=True)
+
+
+# =========================================================
+# MODAL DE DIÁLOGO FLOTANTE PARA GERENCIA
+# =========================================================
+@st.dialog("🔒 Acceso Restringido")
+def modal_gerencia():
+    st.markdown("""
+        <div class="exe-modal-header">
+            <div style="font-size: 2.5rem; margin-bottom: 6px;">🔑</div>
+            <div class="exe-title-modal">Panel Ejecutivo</div>
+            <div class="exe-badge-modal"><span class="pulse-dot"></span> ACCESO GERENCIAL</div>
+            <p style="color: #64748b; font-size: 0.88rem; margin-top: 4px;">
+                Ecosistema de Control Interno consolidado en una sola vista estratégica.
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    if st.button("INGRESAR Y ACCEDER", use_container_width=True, key="btn_confirmar_modal"):
+        st.session_state.area = "Gerencia"
+        st.session_state.auth = False
+        st.rerun()
 
 
 # =========================================================
@@ -309,34 +326,39 @@ def open_panel_button(url, key):
 # =========================================================
 if st.session_state.area is None:
 
-    st.markdown('<div class="main-title">Ecosistema Digital • Control Interno</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Seleccione el área estratégica para desplegar indicadores</div>', unsafe_allow_html=True)
+    # Encabezado principal con botón discreto a la derecha
+    head_col1, head_col2 = st.columns([3, 1], vertical_alignment="bottom")
+    
+    with head_col1:
+        st.markdown('<div class="main-title">Ecosistema Digital • Control Interno</div>', unsafe_allow_html=True)
+        st.markdown('<div class="subtitle">Seleccione el área estratégica para desplegar indicadores</div>', unsafe_allow_html=True)
+    
+    with head_col2:
+        # Botón sutil para gerencia
+        if st.button("🔒 Gerencial", key="btn_open_modal"):
+            modal_gerencia()
+
     st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
 
+    # 3 TARJETAS PRINCIPALES
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        report_card("Planta de Beneficio",
-                    "Aseguramiento y calidad de planta",
-                    "PlantaBeneficio.jpg")
+        report_card("Planta de Beneficio", "Aseguramiento y calidad de planta", "PlantaBeneficio.jpg")
         if st.button("Ingresar", key="pb", use_container_width=True):
             st.session_state.area = "Planta de Beneficio"
             st.session_state.auth = False
             st.rerun()
 
     with col2:
-        report_card("Tienda Mi Casero",
-                    "Auditoría y planes de mejora en tienda",
-                    "TiendaMiCasero.jpg")
+        report_card("Tienda Mi Casero", "Auditoría y planes de mejora en tienda", "TiendaMiCasero.jpg")
         if st.button("Ingresar", key="tmc", use_container_width=True):
             st.session_state.area = "Tienda Mi Casero"
             st.session_state.auth = False
             st.rerun()
 
     with col3:
-        report_card("PAB",
-                    "Monitoreo de finos, granulometría y PDI",
-                    "PAB.jpg")
+        report_card("PAB", "Monitoreo de finos, granulometría y PDI", "PAB.jpg")
         if st.button("Ingresar", key="pab", use_container_width=True):
             st.session_state.area = "PAB"
             st.session_state.auth = False
