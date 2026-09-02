@@ -1,6 +1,5 @@
 from pathlib import Path
 import streamlit as st
-import streamlit.components.v1 as components
 from PIL import Image
 
 # =========================================================
@@ -19,19 +18,17 @@ else:
     icon_image = "🔍"
 
 # =========================================================
-# CONFIG (AQUÍ DEFINIMOS QUE INICIE O SE MANTENGA PLEGADO)
+# CONFIGURACIÓN DE PÁGINA
 # =========================================================
 st.set_page_config(
     page_title="Control Interno • GDP",
     page_icon=icon_image,
     layout="wide",
-    initial_sidebar_state="collapsed"  # <-- Inicia retraído por defecto
+    initial_sidebar_state="collapsed"  # Mantiene la barra contraída por defecto
 )
 
 # Paleta Verde Corporativa Ultra-Premium
-COLOR1 = "#0b5334"  # Verde Oscuro
-COLOR2 = "#0b5334"  # Verde Principal
-COLOR3 = "#0b5334"  # Verde Accent
+COLOR1 = "#0b5334"
 
 # URL Por defecto para reportes sin enlace aún
 URL_PENDIENTE = "https://app.powerbi.com"
@@ -55,69 +52,26 @@ if "area" not in st.session_state:
 if "auth" not in st.session_state:
     st.session_state.auth = False
 
-if "collapse_sidebar" not in st.session_state:
-    st.session_state.collapse_sidebar = False
-
 
 # =========================================================
-# SCRIPT PARA FORZAR EL CIERRE
-# =========================================================
-if st.session_state.collapse_sidebar:
-    components.html(
-        """
-        <script>
-            var sidebar = window.parent.document.querySelector('[data-testid="stSidebar"]');
-            var button = window.parent.document.querySelector('[data-testid="stSidebarCollapseButton"]');
-            if (sidebar && sidebar.getAttribute('aria-expanded') === 'true') {
-                if (button) {
-                    button.click();
-                }
-            }
-        </script>
-        """,
-        height=0,
-        width=0
-    )
-    st.session_state.collapse_sidebar = False
-
-
-# =========================================================
-# SIDEBAR GERENCIA
+# SIDEBAR GERENCIA (USANDO POPOVER NATIVO QUE CIERRA SOLO)
 # =========================================================
 with st.sidebar:
     st.markdown(f"""
     <style>
-    .executive-card-sidebar {{
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-radius: 20px;
-        padding: 24px 20px;
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 15px 35px -10px rgba(11, 83, 52, 0.12), 0 0 0 1px rgba(11, 83, 52, 0.05);
-        text-align: center;
-        margin-bottom: 24px;
-        position: relative;
-        overflow: hidden;
-    }}
-    .executive-card-sidebar::before {{
-        content: "";
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, {COLOR1}, #15803d);
-    }}
     .exe-title-sidebar {{
         font-weight: 800;
         color: {COLOR1};
         margin-bottom: 6px;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         text-transform: uppercase;
         letter-spacing: 0.8px;
+        text-align: center;
     }}
     .exe-status-sidebar {{
-        display: inline-flex;
+        display: flex;
         align-items: center;
+        justify-content: center;
         gap: 6px;
         padding: 4px 14px;
         background: rgba(254, 226, 226, 0.8);
@@ -127,7 +81,8 @@ with st.sidebar:
         font-size: 0.7rem;
         font-weight: 700;
         letter-spacing: 0.6px;
-        margin-bottom: 12px;
+        margin: 0 auto 12px auto;
+        width: fit-content;
     }}
     .pulse-dot {{
         width: 6px;
@@ -143,35 +98,32 @@ with st.sidebar:
         100% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }}
     }}
     </style>
-    
-    <div class="executive-card-sidebar">
-        <div style="font-size: 2.5rem; margin-bottom: 10px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));"></div>
-        <div class="exe-title-sidebar">Panel Ejecutivo</div>
-        <div class="exe-status-sidebar"><span class="pulse-dot"></span> ACCESO RESTRINGIDO</div>
-        <p style="color: #475569; font-size: 0.85rem; line-height: 1.5; margin-top: 6px; font-weight: 400;">
-            Ecosistema de Control Interno consolidado en una sola vista estratégica.
-        </p>
-    </div>
     """, unsafe_allow_html=True)
 
-    if st.button("INGRESAR", use_container_width=True, help="Solo personal autorizado"):
-        st.session_state.area = "Gerencia"
-        st.session_state.auth = False
-        st.session_state.collapse_sidebar = True  # Marca la orden de retraer
-        st.rerun()
-    
+    st.subheader("Acceso Restringido")
+
+    # Usamos popover: al hacer clic en Ingresar dentro del menú emergente, este se cierra solo y recarga la página principal
+    with st.popover("🔑 Panel Ejecutivo", use_container_width=True):
+        st.markdown('<div class="exe-title-sidebar">Panel Ejecutivo</div>', unsafe_allow_html=True)
+        st.markdown('<div class="exe-status-sidebar"><span class="pulse-dot"></span> ACCESO RESTRINGIDO</div>', unsafe_allow_html=True)
+        st.caption("Ecosistema de Control Interno consolidado en una sola vista estratégica.")
+        
+        if st.button("INGRESAR Y ACCEDER", use_container_width=True, key="btn_ingresar_gerencia"):
+            st.session_state.area = "Gerencia"
+            st.session_state.auth = False
+            st.rerun()
+
     st.markdown("---")
     st.caption("© 2026 • Grupo Don Pollo")
 
 
 # =========================================================
-# ESTILOS VISUALES EXPERT LEVEL
+# ESTILOS VISUALES
 # =========================================================
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* Reset y Fondo Dinámico */
 html, body, [class*="css"] {{
     font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
 }}
@@ -182,7 +134,6 @@ html, body, [class*="css"] {{
                 #f8fafc;
 }}
 
-/* Encabezados Ultra Clean */
 .main-title {{
     font-size: 2.6rem;
     font-weight: 800;
@@ -210,7 +161,6 @@ html, body, [class*="css"] {{
     box-shadow: 0 4px 12px rgba(11, 83, 52, 0.25);
 }}
 
-/* TARJETAS GLASSMORPHISM CON SHIMMER EFFECT */
 .card {{
     border-radius: 20px;
     overflow: hidden;
@@ -247,7 +197,6 @@ html, body, [class*="css"] {{
     line-height: 1.4;
 }}
 
-/* BOTONES DE ACTION SYSTEM */
 div.stButton > button {{
     width: 100%;
     background: linear-gradient(135deg, {COLOR1} 0%, #0d633e 100%);
@@ -268,7 +217,6 @@ div.stButton > button:hover {{
     background: linear-gradient(135deg, #0e613d 0%, #15803d 100%);
 }}
 
-/* CAJA DE LOGIN PROFESIONAL */
 .login-box {{
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(20px);
@@ -284,7 +232,6 @@ div.stButton > button:hover {{
     to {{ opacity: 1; transform: scale(1) translateY(0); }}
 }}
 
-/* STYLING EN INPUTS */
 div[data-baseweb="input"] {{
     border-radius: 12px !important;
     background-color: #f8fafc !important;
@@ -302,7 +249,7 @@ div[data-baseweb="input"]:focus-within {{
 
 
 # =========================================================
-# FUNCIONES
+# FUNCIONES AUXILIARES
 # =========================================================
 def report_card(titulo, desc, img_relative_path):
     img_path = ASSETS_DIR / img_relative_path
@@ -417,20 +364,19 @@ else:
 
             pwd = st.text_input("Contraseña", type="password", placeholder="••••••••")
 
-            if st.button("Ingresar", use_container_width=True):
+            if st.button("Ingresar", use_container_width=True, key="btn_login_auth"):
                 if pwd == PASSWORDS[area]:
                     st.session_state.auth = True
                     st.rerun()
                 else:
                     st.error("Acceso denegado: Contraseña incorrecta")
 
-            if st.button("Volver", use_container_width=True):
+            if st.button("Volver", use_container_width=True, key="btn_login_volver"):
                 st.session_state.area = None
                 st.rerun()
 
     else:
 
-        # ENCABEZADO OPTIMIZADO CON NAVEGACIÓN A LA DERECHA
         head_col1, head_col2 = st.columns([3, 1], vertical_alignment="center")
         with head_col1:
             st.markdown(f'<div class="main-title">{area}</div>', unsafe_allow_html=True)
@@ -441,7 +387,6 @@ else:
                 st.rerun()
 
         st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
-
         st.divider()
 
         # ================= GERENCIA VE TODO =================
