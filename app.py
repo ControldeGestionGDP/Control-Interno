@@ -18,7 +18,7 @@ else:
     icon_image = "🔍"
 
 # =========================================================
-# CONFIGURACIÓN DE PÁGINA (SIN SIDEBAR)
+# CONFIGURACIÓN DE PÁGINA
 # =========================================================
 st.set_page_config(
     page_title="Control Interno • GDP",
@@ -27,7 +27,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Paleta Verde Corporativa Ultra-Premium
+# Paleta Verde Corporativa
 COLOR1 = "#0b5334"
 
 # URL Por defecto para reportes sin enlace aún
@@ -52,9 +52,8 @@ if "area" not in st.session_state:
 if "auth" not in st.session_state:
     st.session_state.auth = False
 
-
 # =========================================================
-# OCULTAR BARRA LATERAL COMPLETAMENTE
+# OCULTAR BARRA LATERAL
 # =========================================================
 st.markdown("""
 <style>
@@ -64,9 +63,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 # =========================================================
-# ESTILOS VISUALES ULTRA-ESTÉTICOS
+# ESTILOS VISUALES
 # =========================================================
 st.markdown(f"""
 <style>
@@ -83,21 +81,20 @@ html, body, [class*="css"] {{
 }}
 
 .main-title {{
-    font-size: 2.6rem;
+    font-size: 2.2rem;
     font-weight: 800;
     background: linear-gradient(135deg, {COLOR1} 0%, #15803d 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.03em;
     line-height: 1.2;
-    margin-bottom: 4px;
 }}
 
 .subtitle {{
     color: #64748b;
-    font-size: 1.05rem;
+    font-size: 0.98rem;
     font-weight: 500;
-    margin-bottom: 12px;
+    margin-top: 4px;
 }}
 
 .title-accent {{
@@ -105,11 +102,12 @@ html, body, [class*="css"] {{
     width: 80px;
     background: linear-gradient(90deg, {COLOR1}, #16a34a);
     border-radius: 99px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 12px rgba(11, 83, 52, 0.25);
+    margin-top: 16px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 12px rgba(11, 83, 52, 0.2);
 }}
 
-/* TARJETAS PRINCIPALES */
+/* TARJETAS ESTÁNDAR */
 .card {{
     border-radius: 20px;
     overflow: hidden;
@@ -119,14 +117,13 @@ html, body, [class*="css"] {{
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
     margin-bottom: 12px;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
 }}
 
 .card:hover {{
     transform: translateY(-8px) scale(1.01);
     background: #ffffff;
     border-color: rgba(11, 83, 52, 0.3);
-    box-shadow: 0 25px 40px -12px rgba(11, 83, 52, 0.18), 0 0 0 1px rgba(11, 83, 52, 0.1);
+    box-shadow: 0 25px 40px -12px rgba(11, 83, 52, 0.18);
 }}
 
 .card img {{
@@ -141,14 +138,36 @@ html, body, [class*="css"] {{
 .card-title {{
     padding: 20px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: #0f172a;
     line-height: 1.4;
 }}
 
-/* ESTILIZACIÓN PREMIUM DEL MODAL NATIVO */
+/* BOTÓN ACCESO GERENCIAL ESTILO NAV (PILL BUTTON) */
+div[data-testid="stColumn"] > div > div > div > button[key="btn_open_modal"] {{
+    background: rgba(11, 83, 52, 0.08) !important;
+    color: {COLOR1} !important;
+    border: 1.5px solid rgba(11, 83, 52, 0.25) !important;
+    border-radius: 99px !important;
+    height: 42px !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease !important;
+}}
+
+div[data-testid="stColumn"] > div > div > div > button[key="btn_open_modal"]:hover {{
+    background: {COLOR1} !important;
+    color: #ffffff !important;
+    border-color: {COLOR1} !important;
+    box-shadow: 0 8px 20px rgba(11, 83, 52, 0.25) !important;
+    transform: translateY(-2px) !important;
+}}
+
+/* ESTILIZACIÓN DEL MODAL */
 div[data-testid="stDialog"] > div {{
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
     backdrop-filter: blur(24px) !important;
     border-radius: 28px !important;
     border: 1px solid rgba(11, 83, 52, 0.15) !important;
@@ -225,37 +244,13 @@ div.stButton > button:hover {{
     background: linear-gradient(135deg, #0e613d 0%, #15803d 100%);
 }}
 
-/* LOGIN BOX */
-.login-box {{
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    padding: 48px;
-    border-radius: 24px;
-    box-shadow: 0 25px 50px -12px rgba(11, 83, 52, 0.15), 0 0 0 1px rgba(226, 232, 240, 0.8);
-    border-top: 6px solid {COLOR1};
-    animation: loginAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}}
-
-@keyframes loginAppear {{
-    from {{ opacity: 0; transform: scale(0.95) translateY(10px); }}
-    to {{ opacity: 1; transform: scale(1) translateY(0); }}
-}}
-
 div[data-baseweb="input"] {{
     border-radius: 12px !important;
     background-color: #f8fafc !important;
     border: 1.5px solid #e2e8f0 !important;
-    transition: all 0.2s ease !important;
-}}
-
-div[data-baseweb="input"]:focus-within {{
-    border-color: {COLOR1} !important;
-    background-color: #ffffff !important;
-    box-shadow: 0 0 0 4px rgba(11, 83, 52, 0.12) !important;
 }}
 </style>
 """, unsafe_allow_html=True)
-
 
 # =========================================================
 # FUNCIONES AUXILIARES
@@ -305,7 +300,7 @@ def open_panel_button(url, key):
             align-items: center;
             justify-content: center;
             gap: 8px;
-        " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(11, 83, 52, 0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 16px rgba(11, 83, 52, 0.2)';" >
+        " onmouseover="this.style.transform='translateY(-3px)';" onmouseout="this.style.transform='translateY(0)';" >
             <span>Abrir Dashboard</span>
             <span style="font-size: 1.1rem;">→</span>
         </div>
@@ -314,11 +309,10 @@ def open_panel_button(url, key):
 
 
 # =========================================================
-# MODAL CON LOGO INSTITUCIONAL
+# MODAL DE ACCESO GERENCIAL
 # =========================================================
 @st.dialog(" ")
 def modal_gerencia():
-    # Centrar el logo institucional dentro del modal
     c1, c2, c3 = st.columns([1, 1.2, 1])
     with c2:
         if LOGO_PATH.exists():
@@ -352,15 +346,16 @@ def modal_gerencia():
 # =========================================================
 if st.session_state.area is None:
 
-    # ENCABEZADO CON BOTÓN ELEGANTE
-    head_col1, head_col2 = st.columns([3, 1], vertical_alignment="bottom")
+    # ENCABEZADO TIPO NAVBAR CON BOTÓN ALINEADO
+    nav_col1, nav_col2 = st.columns([3.8, 1.2], vertical_alignment="center")
     
-    with head_col1:
+    with nav_col1:
         st.markdown('<div class="main-title">Ecosistema Digital • Control Interno</div>', unsafe_allow_html=True)
         st.markdown('<div class="subtitle">Seleccione el área estratégica para desplegar indicadores</div>', unsafe_allow_html=True)
     
-    with head_col2:
-        if st.button("🔒 Acceso Gerencial", key="btn_open_modal"):
+    with nav_col2:
+        # Botón estilo Pill/Badge perfectamente integrado arriba
+        if st.button("🔒 Acceso Gerencial", key="btn_open_modal", use_container_width=True):
             modal_gerencia()
 
     st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
@@ -399,12 +394,12 @@ else:
         with col2:
 
             st.markdown(f"""
-            <div class="login-box">
-                <div style="font-size:1.6rem;font-weight:800;color:{COLOR1};text-align:center;letter-spacing:-0.5px;">
+            <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); text-align: center;">
+                <div style="font-size:1.5rem;font-weight:800;color:{COLOR1};margin-bottom:8px;">
                     {area}
                 </div>
-                <div style="text-align:center;color:#64748b;margin-bottom:24px;font-size:0.92rem;font-weight:500;">
-                    Ingrese su clave de acceso restringido
+                <div style="color:#64748b;margin-bottom:20px;font-size:0.9rem;">
+                    Ingrese su clave de acceso
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -433,7 +428,6 @@ else:
                 st.session_state.auth = False
                 st.rerun()
 
-        st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
         st.divider()
 
         # ================= GERENCIA VE TODO =================
@@ -450,11 +444,6 @@ else:
             with col3:
                 report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pb3")
-            
-            col_g1, col_g2, col_g3 = st.columns(3)
-            with col_g1:
-                report_card("Reclamos Externos", "En Desarrollo - Gestión de reclamos de clientes", "ReclamosExternos.jpg")
-                open_panel_button(URL_PENDIENTE, "g_pb4")
 
             st.divider()
             st.subheader("Tienda Mi Casero")
@@ -492,11 +481,6 @@ else:
             with col3:
                 report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "pb3")
-            
-            col4, col5, col6 = st.columns(3)
-            with col4:
-                report_card("Reclamos Externos", "En Desarrollo - Gestión de reclamos de clientes", "ReclamosExternos.jpg")
-                open_panel_button(URL_PENDIENTE, "pb4")
 
         # ================= TIENDA MI CASERO =================
         elif area == "Tienda Mi Casero":
