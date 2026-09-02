@@ -1,5 +1,6 @@
 from pathlib import Path
 import streamlit as st
+import streamlit.components.v1 as components
 from PIL import Image
 
 # =========================================================
@@ -52,6 +53,24 @@ if "area" not in st.session_state:
 
 if "auth" not in st.session_state:
     st.session_state.auth = False
+
+
+# =========================================================
+# FUNCIÓN PARA CONTRAER SIDEBAR AUTOMÁTICAMENTE
+# =========================================================
+def close_sidebar():
+    components.html(
+        """
+        <script>
+            const sidebarBtn = window.parent.document.querySelector('[data-testid="stSidebarCollapseButton"]');
+            if (sidebarBtn) {
+                sidebarBtn.click();
+            }
+        </script>
+        """,
+        height=0,
+        width=0,
+    )
 
 
 # =========================================================
@@ -130,6 +149,7 @@ with st.sidebar:
     if st.button("INGRESAR", use_container_width=True, help="Solo personal autorizado"):
         st.session_state.area = "Gerencia"
         st.session_state.auth = False
+        close_sidebar()  # <--- CIERRA EL SIDEBAR AL HACER CLIC
         st.rerun()
     
     st.markdown("---")
