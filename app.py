@@ -171,6 +171,7 @@ div[data-testid="stDialog"] header {{
     font-size: 1.35rem;
     text-transform: uppercase;
     letter-spacing: 0.8px;
+    margin-top: 10px;
     margin-bottom: 6px;
 }}
 
@@ -313,13 +314,20 @@ def open_panel_button(url, key):
 
 
 # =========================================================
-# MODAL CON ACCESO DIRECTO Y CONTRASEÑA INCORPORADA
+# MODAL CON LOGO INSTITUCIONAL
 # =========================================================
 @st.dialog(" ")
 def modal_gerencia():
+    # Centrar el logo institucional dentro del modal
+    c1, c2, c3 = st.columns([1, 1.2, 1])
+    with c2:
+        if LOGO_PATH.exists():
+            st.image(LOGO_PATH.read_bytes(), use_container_width=True)
+        else:
+            st.markdown("<div style='text-align:center;font-size:3rem;'>🏢</div>", unsafe_allow_html=True)
+
     st.markdown("""
         <div class="exe-modal-header">
-            <div style="font-size: 2.8rem; margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));">🔑</div>
             <div class="exe-title-modal">Panel Ejecutivo</div>
             <div class="exe-badge-modal"><span class="pulse-dot"></span> ACCESO GERENCIAL</div>
             <p style="color: #64748b; font-size: 0.88rem; margin-top: 4px; font-weight: 500;">
@@ -344,7 +352,7 @@ def modal_gerencia():
 # =========================================================
 if st.session_state.area is None:
 
-    # ENCABEZADO CON BOTÓN CON ESTILO GERENCIAL
+    # ENCABEZADO CON BOTÓN ELEGANTE
     head_col1, head_col2 = st.columns([3, 1], vertical_alignment="bottom")
     
     with head_col1:
@@ -352,7 +360,7 @@ if st.session_state.area is None:
         st.markdown('<div class="subtitle">Seleccione el área estratégica para desplegar indicadores</div>', unsafe_allow_html=True)
     
     with head_col2:
-        if st.button("🔑 Acceso Gerencial", key="btn_open_modal"):
+        if st.button("🔒 Acceso Gerencial", key="btn_open_modal"):
             modal_gerencia()
 
     st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
