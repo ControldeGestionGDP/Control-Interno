@@ -464,6 +464,12 @@ else:
                 report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pb3")
 
+            # Fila 2 - Planta de Beneficio (Alineado a la izquierda)
+            col1_f2, col2_f2, col3_f2 = st.columns(3)
+            with col1_f2:
+                report_card("Reclamos Clientes", "En Desarrollo - Gestión de reclamos externos", "ReclamosClientes.jpg")
+                open_panel_button(URL_PENDIENTE, "g_pb4")
+
             st.divider()
             st.subheader("Tienda Mi Casero")
             col1, col2 = st.columns(2)
@@ -490,6 +496,7 @@ else:
         # ================= PLANTA DE BENEFICIO =================
         elif area == "Planta de Beneficio":
 
+            # Fila 1
             col1, col2, col3 = st.columns(3)
             with col1:
                 report_card("Calidad Planta de Beneficio", "Control de procesos e higiene", "CalidadPlanta.jpg")
@@ -500,6 +507,12 @@ else:
             with col3:
                 report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "pb3")
+
+            # Fila 2 (Alineado a la izquierda)
+            col1_f2, col2_f2, col3_f2 = st.columns(3)
+            with col1_f2:
+                report_card("Reclamos Clientes", "En Desarrollo - Gestión de reclamos externos", "ReclamosClientes.jpg")
+                open_panel_button(URL_PENDIENTE, "pb4")
 
         # ================= TIENDA MI CASERO =================
         elif area == "Tienda Mi Casero":
