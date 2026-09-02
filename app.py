@@ -51,43 +51,66 @@ with st.sidebar:
     st.markdown(f"""
     <style>
     .executive-card-sidebar {{
-        background: white;
-        border-radius: 18px;
-        padding: 20px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 24px 20px;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        box-shadow: 0 10px 30px -10px rgba(11, 83, 52, 0.08);
         text-align: center;
-        margin-bottom: 20px;
-        transition: transform 0.3s ease;
+        margin-bottom: 24px;
+        position: relative;
+        overflow: hidden;
     }}
-    .executive-card-sidebar:hover {{
-        transform: translateY(-2px);
+    .executive-card-sidebar::before {{
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, {COLOR1}, #147a4d);
     }}
     .exe-title-sidebar {{
         font-weight: 800;
         color: {COLOR1};
-        margin-bottom: 5px;
-        font-size: 1.1rem;
+        margin-bottom: 8px;
+        font-size: 1.15rem;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.8px;
     }}
     .exe-status-sidebar {{
-        display: inline-block;
-        padding: 3px 12px;
-        background: #FEE2E2;
-        color: #EF4444;
-        border-radius: 12px;
-        font-size: 0.7rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        background: #FEF2F2;
+        color: #DC2626;
+        border: 1px solid #FCA5A5;
+        border-radius: 20px;
+        font-size: 0.72rem;
         font-weight: 700;
-        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+        margin-bottom: 14px;
+    }}
+    .pulse-dot {{
+        width: 6px;
+        height: 6px;
+        background-color: #DC2626;
+        border-radius: 50%;
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+        animation: pulse 1.8s infinite;
+    }}
+    @keyframes pulse {{
+        0% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }}
+        70% {{ transform: scale(1); box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }}
+        100% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }}
     }}
     </style>
     
     <div class="executive-card-sidebar">
-        <div style="font-size: 2.2rem; margin-bottom: 10px;">🔍</div>
+        <div style="font-size: 2.4rem; margin-bottom: 12px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">🔍</div>
         <div class="exe-title-sidebar">Panel Ejecutivo</div>
-        <div class="exe-status-sidebar">● ACCESO RESTRINGIDO</div>
-        <p style="color: #64748b; font-size: 0.85rem; line-height: 1.4; margin-top: 5px;">
+        <div class="exe-status-sidebar"><span class="pulse-dot"></span> ACCESO RESTRINGIDO</div>
+        <p style="color: #475569; font-size: 0.85rem; line-height: 1.5; margin-top: 5px; font-weight: 400;">
             Ecosistema de Control Interno consolidado en una sola vista estratégica.
         </p>
     </div>
@@ -107,104 +130,125 @@ with st.sidebar:
 # =========================================================
 st.markdown(f"""
 <style>
-html, body {{
-    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #f8fafc;
-    animation: fadeInBody 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+html, body, [class*="css"] {{
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background-color: #f8fafc;
 }}
-@keyframes fadeInBody {{
-    from {{ opacity: 0; transform: translateY(6px); }}
+
+/* Animación global de entrada */
+.main .block-container {{
+    animation: fadeInPage 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+@keyframes fadeInPage {{
+    from {{ opacity: 0; transform: translateY(10px); }}
     to {{ opacity: 1; transform: translateY(0); }}
 }}
+
 .main-title {{
     font-size: 2.5rem;
     font-weight: 800;
     color: {COLOR1};
-    letter-spacing: -0.5px;
-    animation: slideInTitle 0.6s ease;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
 }}
-@keyframes slideInTitle {{
-    from {{ opacity: 0; transform: translateX(-8px); }}
-    to {{ opacity: 1; transform: translateX(0); }}
-}}
+
 .subtitle {{
     color: #64748b;
     font-size: 1.05rem;
-    margin-bottom: 12px;
+    font-weight: 500;
+    margin-bottom: 8px;
 }}
+
 .title-accent {{
     height: 4px;
-    width: 120px;
-    background: linear-gradient(90deg,{COLOR1},{COLOR2},{COLOR3});
+    width: 100px;
+    background: linear-gradient(90deg, {COLOR1}, #147a4d);
     border-radius: 4px;
-    margin-bottom: 28px;
-    animation: expandBar 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    margin-bottom: 32px;
+    box-shadow: 0 2px 8px rgba(11, 83, 52, 0.2);
 }}
-@keyframes expandBar {{
-    from {{ width: 0; }}
-    to {{ width: 120px; }}
-}}
+
+/* LOGIN BOX ELEGANTE */
 .login-box {{
-    background: white;
-    padding: 40px;
-    border-radius: 18px;
-    box-shadow: 0 20px 40px rgba(11, 83, 52, 0.08);
-    border-top: 5px solid {COLOR1};
-    animation: fadeInCard 0.4s ease;
+    background: #ffffff;
+    padding: 44px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px -15px rgba(11, 83, 52, 0.12), 0 0 0 1px rgba(226, 232, 240, 0.8);
+    border-top: 6px solid {COLOR1};
+    animation: loginScale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }}
-@keyframes fadeInCard {{
-    from {{ opacity: 0; transform: translateY(10px); }}
-    to {{ opacity: 1; transform: translateY(0); }}
+@keyframes loginScale {{
+    from {{ opacity: 0; transform: scale(0.96); }}
+    to {{ opacity: 1; transform: scale(1); }}
 }}
+
+/* TARJETAS EJECUTIVAS */
 .card {{
-    border-radius: 18px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
     margin-bottom: 12px;
-    background: white;
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
 }}
 .card:hover {{
     transform: translateY(-6px);
-    box-shadow: 0 20px 35px rgba(11, 83, 52, 0.12);
+    border-color: rgba(11, 83, 52, 0.3);
+    box-shadow: 0 20px 30px -10px rgba(11, 83, 52, 0.15), 0 0 0 1px rgba(11, 83, 52, 0.1);
 }}
 .card img {{
-    border-radius: 18px 18px 0 0;
-    transition: transform 0.4s ease;
+    border-radius: 16px 16px 0 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: brightness(0.98);
 }}
 .card:hover img {{
-    transform: scale(1.03);
+    transform: scale(1.05);
+    filter: brightness(1.02);
 }}
 .card-title {{
-    padding: 16px;
+    padding: 18px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    color: #0f172a;
     line-height: 1.4;
 }}
+
+/* BOTONES DE STREAMLIT */
 div.stButton > button {{
     width: 100%;
-    background: linear-gradient(90deg, {COLOR1}, {COLOR2}, {COLOR3});
-    color: white;
+    background: linear-gradient(135deg, {COLOR1} 0%, #106641 100%);
+    color: white !important;
     border-radius: 10px;
     border: none;
-    font-weight: 700;
-    height: 45px;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    height: 46px;
+    box-shadow: 0 4px 12px rgba(11, 83, 52, 0.2);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 div.stButton > button:hover {{
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(11, 83, 52, 0.25);
+    box-shadow: 0 8px 20px rgba(11, 83, 52, 0.35);
+    background: linear-gradient(135deg, #0e613d 0%, #147a4d 100%);
 }}
 div.stButton > button:active {{
     transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(11, 83, 52, 0.2);
 }}
-/* Estilo mejorado para input de contraseña */
+
+/* INPUTS REDISEÑADOS */
 div[data-baseweb="input"] {{
     border-radius: 10px !important;
+    border-color: #cbd5e1 !important;
+    transition: all 0.2s ease;
 }}
 div[data-baseweb="input"]:focus-within {{
     border-color: {COLOR1} !important;
+    box-shadow: 0 0 0 3px rgba(11, 83, 52, 0.15) !important;
 }}
 </style>
 """, unsafe_allow_html=True)
@@ -230,7 +274,7 @@ def report_card(titulo, desc, img_relative_path):
     st.markdown(f"""
         <div class="card-title">
             {titulo}<br>
-            <span style="font-weight:400;color:#6b7280;font-size:0.92rem;">
+            <span style="font-weight:400;color:#64748b;font-size:0.88rem;">
                 {desc}
             </span>
         </div>
@@ -245,16 +289,18 @@ def open_panel_button(url, key):
         <div style="
             width:100%;
             text-align:center;
-            padding:12px;
+            padding:12px 16px;
             border-radius:10px;
-            font-weight:700;
+            font-weight:600;
+            font-size:0.92rem;
             color:white;
-            background: linear-gradient(90deg,{COLOR1},{COLOR2},{COLOR3});
-            box-shadow: 0 6px 14px rgba(11, 83, 52, 0.2);
-            transition: all 0.25s ease;
-            margin-top: 4px;
-        " onmouseover="this.style.transform='translateY(-2px)';" onmouseout="this.style.transform='translateY(0)';" >
-            Abrir Dashboard
+            background: linear-gradient(135deg, {COLOR1} 0%, #106641 100%);
+            box-shadow: 0 4px 14px rgba(11, 83, 52, 0.22);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: 6px;
+            letter-spacing:0.3px;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(11, 83, 52, 0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(11, 83, 52, 0.22)';" >
+            Abrir Dashboard ↗
         </div>
     </a>
     """, unsafe_allow_html=True)
@@ -266,7 +312,7 @@ def open_panel_button(url, key):
 if st.session_state.area is None:
 
     st.markdown('<div class="main-title">Ecosistema Digital • Control Interno</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Seleccione el área de interés</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Seleccione el área estratégica para continuar</div>', unsafe_allow_html=True)
     st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
@@ -309,11 +355,11 @@ else:
 
             st.markdown(f"""
             <div class="login-box">
-                <div style="font-size:1.4rem;font-weight:700;color:{COLOR1};text-align:center;">
+                <div style="font-size:1.5rem;font-weight:800;color:{COLOR1};text-align:center;letter-spacing:-0.5px;">
                     {area}
                 </div>
-                <div style="text-align:center;color:#6b7280;margin-bottom:20px;font-size:0.95rem;">
-                    Ingrese su contraseña para continuar
+                <div style="text-align:center;color:#64748b;margin-bottom:24px;font-size:0.9rem;font-weight:500;">
+                    Ingrese las credenciales autorizadas
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -325,7 +371,7 @@ else:
                     st.session_state.auth = True
                     st.rerun()
                 else:
-                    st.error("Contraseña incorrecta. Por favor intente nuevamente.")
+                    st.error("Contraseña incorrecta. Verifique sus credenciales.")
 
             if st.button("Volver", use_container_width=True):
                 st.session_state.area = None
@@ -434,6 +480,6 @@ else:
 # FOOTER
 # =========================================================
 st.markdown(
-    "<center style='color:#9ca3af;margin-top:40px;'>Gerencia de Control de Gestión • Grupo Don Pollo</center>",
+    "<center style='color:#94a3b8;margin-top:50px;font-size:0.85rem;font-weight:500;'>Gerencia de Control de Gestión • Grupo Don Pollo</center>",
     unsafe_allow_html=True
 )
