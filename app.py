@@ -6,7 +6,7 @@ from pathlib import Path
 # =========================================================
 st.set_page_config(
     page_title="Control Interno • GDP",
-    page_icon="🔍",
+    page_icon="CI",
     layout="wide"
 )
 
@@ -45,7 +45,7 @@ if "auth" not in st.session_state:
 
 
 # =========================================================
-# 🔐 SIDEBAR GERENCIA
+# SIDEBAR GERENCIA
 # =========================================================
 with st.sidebar:
     st.markdown(f"""
@@ -414,12 +414,12 @@ else:
                 report_card("Hígado Descarte", "Seguimiento y merma de descarte", "HigadoDescarte.jpg")
                 open_panel_button("https://app.powerbi.com/links/hyk8FNTUbL?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "g_pb2")
             with col3:
-                report_card("Reclamos Internos", "Registro de no conformidades internas", "ReclamosInternos.jpg")
+                report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades internas", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pb3")
             
             col_g1, col_g2, col_g3 = st.columns(3)
             with col_g1:
-                report_card("Reclamos Externos", "Gestión de reclamos de clientes", "ReclamosExternos.jpg")
+                report_card("Reclamos Externos", "En Desarrollo - Gestión de reclamos de clientes", "ReclamosExternos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pb4")
 
             st.divider()
@@ -429,20 +429,20 @@ else:
                 report_card("CheckList Tienda Mi Casero", "Evaluación operacional de tiendas", "ChecklistMiCasero.jpg")
                 open_panel_button("https://app.powerbi.com/links/4HbKF8s_Vp?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "g_tmc1")
             with col2:
-                report_card("Planes de Mejora", "Acciones correctivas y seguimiento", "PlanesMejora.jpg")
+                report_card("Planes de Mejora", "En Desarrollo - Acciones correctivas y seguimiento", "PlanesMejora.jpg")
                 open_panel_button(URL_PENDIENTE, "g_tmc2")
 
             st.divider()
             st.subheader("PAB")
             col1, col2, col3 = st.columns(3)
             with col1:
-                report_card("Reporte de Finos", "Análisis de porcentaje de finos", "ReporteFinos.jpg")
+                report_card("Reporte de Finos", "En Desarrollo - Análisis de porcentaje de finos", "ReporteFinos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pab1")
             with col2:
-                report_card("Reporte de Granulometría", "Control de tamaño de partícula", "Granulometria.jpg")
+                report_card("Reporte de Granulometría", "En Desarrollo - Control de tamaño de partícula", "Granulometria.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pab2")
             with col3:
-                report_card("Reporte de PDI", "Índice de durabilidad del pellet", "ReportePDI.jpg")
+                report_card("Reporte de PDI", "En Desarrollo - Índice de durabilidad del pellet", "ReportePDI.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pab3")
 
         # ================= PLANTA DE BENEFICIO =================
@@ -456,12 +456,12 @@ else:
                 report_card("Hígado Descarte", "Seguimiento y merma de descarte", "HigadoDescarte.jpg")
                 open_panel_button("https://app.powerbi.com/links/hyk8FNTUbL?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "pb2")
             with col3:
-                report_card("Reclamos Internos", "Registro de no conformidades internas", "ReclamosInternos.jpg")
+                report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades internas", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "pb3")
             
             col4, col5, col6 = st.columns(3)
             with col4:
-                report_card("Reclamos Externos", "Gestión de reclamos de clientes", "ReclamosExternos.jpg")
+                report_card("Reclamos Externos", "En Desarrollo - Gestión de reclamos de clientes", "ReclamosExternos.jpg")
                 open_panel_button(URL_PENDIENTE, "pb4")
 
         # ================= TIENDA MI CASERO =================
@@ -472,7 +472,7 @@ else:
                 report_card("CheckList Tienda Mi Casero", "Evaluación operacional de tiendas", "ChecklistMiCasero.jpg")
                 open_panel_button("https://app.powerbi.com/links/4HbKF8s_Vp?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "tmc1")
             with col2:
-                report_card("Planes de Mejora", "Acciones correctivas y seguimiento", "PlanesMejora.jpg")
+                report_card("Planes de Mejora", "En Desarrollo - Acciones correctivas y seguimiento", "PlanesMejora.jpg")
                 open_panel_button(URL_PENDIENTE, "tmc2")
 
         # ================= PAB =================
@@ -480,13 +480,13 @@ else:
 
             col1, col2, col3 = st.columns(3)
             with col1:
-                report_card("Reporte de Finos", "Análisis de porcentaje de finos", "ReporteFinos.jpg")
+                report_card("Reporte de Finos", "En Desarrollo - Análisis de porcentaje de finos", "ReporteFinos.jpg")
                 open_panel_button(URL_PENDIENTE, "pab1")
             with col2:
-                report_card("Reporte de Granulometría", "Control de tamaño de partícula", "Granulometria.jpg")
+                report_card("Reporte de Granulometría", "En Desarrollo - Control de tamaño de partícula", "Granulometria.jpg")
                 open_panel_button(URL_PENDIENTE, "pab2")
             with col3:
-                report_card("Reporte de PDI", "Índice de durabilidad del pellet", "ReportePDI.jpg")
+                report_card("Reporte de PDI", "En Desarrollo - Índice de durabilidad del pellet", "ReportePDI.jpg")
                 open_panel_button(URL_PENDIENTE, "pab3")
 
 # =========================================================
