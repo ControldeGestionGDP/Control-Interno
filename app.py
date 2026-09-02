@@ -534,7 +534,29 @@ else:
 # =========================================================
 # FOOTER
 # =========================================================
-st.markdown(
-    "<center style='color:#94a3b8;margin-top:60px;font-size:0.85rem;font-weight:600;letter-spacing:0.5px;'>Gerencia de Control de Gestión • Grupo Don Pollo</center>",
-    unsafe_allow_html=True
-)
+st.markdown(f"""
+<div style="
+    margin-top: 80px;
+    padding-top: 24px;
+    padding-bottom: 30px;
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    text-align: center;
+">
+    <div style="
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: #334155;
+        letter-spacing: 0.3px;
+        margin-bottom: 4px;
+    ">
+        Gerencia de Control de Gestión <span style="color: {COLOR1}; font-weight: 800;">•</span> Grupo Don Pollo
+    </div>
+    <div style="
+        font-size: 0.78rem;
+        color: #94a3b8;
+        font-weight: 500;
+    ">
+        © 2026 Ecosistema Digital de Indicadores. Todos los derechos reservados.
+    </div>
+</div>
+""", unsafe_allow_html=True)
