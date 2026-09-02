@@ -143,8 +143,29 @@ html, body, [class*="css"] {{
     line-height: 1.4;
 }}
 
-/* BOTÓN ACCESO GERENCIAL ESTILO PLOMO ELEGANTE / SLATE */
-div[data-testid="stColumn"] > div > div > div > button[key="btn_open_modal"] {{
+/* BOTONES GENERALES (REGLA BASE) */
+div.stButton > button {{
+    width: 100%;
+    background: linear-gradient(135deg, {COLOR1} 0%, #0d633e 100%);
+    color: #ffffff !important;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    height: 48px;
+    box-shadow: 0 6px 16px rgba(11, 83, 52, 0.22);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}}
+
+div.stButton > button:hover {{
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(11, 83, 52, 0.35);
+    background: linear-gradient(135deg, #0e613d 0%, #15803d 100%);
+}}
+
+/* SOBREESCRITURA ESPECÍFICA: BOTÓN ACCESO GERENCIAL (PLOMO) */
+div.stButton > button[key="btn_open_modal"] {{
     background: #f1f5f9 !important;
     color: #475569 !important;
     border: 1.5px solid #cbd5e1 !important;
@@ -153,11 +174,9 @@ div[data-testid="stColumn"] > div > div > div > button[key="btn_open_modal"] {{
     font-size: 0.88rem !important;
     font-weight: 700 !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
-    backdrop-filter: blur(8px);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }}
 
-div[data-testid="stColumn"] > div > div > div > button[key="btn_open_modal"]:hover {{
+div.stButton > button[key="btn_open_modal"]:hover {{
     background: #e2e8f0 !important;
     color: #0f172a !important;
     border-color: #94a3b8 !important;
@@ -165,8 +184,8 @@ div[data-testid="stColumn"] > div > div > div > button[key="btn_open_modal"]:hov
     transform: translateY(-2px) !important;
 }}
 
-/* BOTÓN CAMBIAR ÁREA (ESTILO GHOST NEUTRO) */
-div[data-testid="stColumn"] > div > div > div > button[key="btn_cambiar_area"] {{
+/* SOBREESCRITURA ESPECÍFICA: BOTÓN CAMBIAR ÁREA */
+div.stButton > button[key="btn_cambiar_area"] {{
     background: transparent !important;
     color: #64748b !important;
     border: 1.5px solid #cbd5e1 !important;
@@ -175,10 +194,9 @@ div[data-testid="stColumn"] > div > div > div > button[key="btn_cambiar_area"] {
     font-size: 0.85rem !important;
     font-weight: 600 !important;
     box-shadow: none !important;
-    transition: all 0.2s ease !important;
 }}
 
-div[data-testid="stColumn"] > div > div > div > button[key="btn_cambiar_area"]:hover {{
+div.stButton > button[key="btn_cambiar_area"]:hover {{
     background: #f1f5f9 !important;
     color: #0f172a !important;
     border-color: #94a3b8 !important;
@@ -241,27 +259,6 @@ div[data-testid="stDialog"] header {{
     0% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }}
     70% {{ transform: scale(1); box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }}
     100% {{ transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }}
-}}
-
-/* BOTONES GENERALES */
-div.stButton > button {{
-    width: 100%;
-    background: linear-gradient(135deg, {COLOR1} 0%, #0d633e 100%);
-    color: #ffffff !important;
-    border-radius: 12px;
-    border: none;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.3px;
-    height: 48px;
-    box-shadow: 0 6px 16px rgba(11, 83, 52, 0.22);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}}
-
-div.stButton > button:hover {{
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(11, 83, 52, 0.35);
-    background: linear-gradient(135deg, #0e613d 0%, #15803d 100%);
 }}
 
 div[data-baseweb="input"] {{
@@ -374,7 +371,7 @@ if st.session_state.area is None:
         st.markdown('<div class="subtitle">Seleccione el área estratégica para desplegar indicadores</div>', unsafe_allow_html=True)
     
     with nav_col2:
-        # Botón estilo Pill/Badge plomo perfectamente integrado arriba
+        # Botón estilo Pill/Badge plomo
         if st.button("🔒 Acceso Gerencial", key="btn_open_modal", use_container_width=True):
             modal_gerencia()
 
