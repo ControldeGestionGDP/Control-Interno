@@ -165,6 +165,26 @@ div[data-testid="stColumn"] > div > div > div > button[key="btn_open_modal"]:hov
     transform: translateY(-2px) !important;
 }}
 
+/* BOTÓN CAMBIAR ÁREA (ESTILO GHOST NEUTRO) */
+div[data-testid="stColumn"] > div > div > div > button[key="btn_cambiar_area"] {{
+    background: transparent !important;
+    color: #64748b !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 99px !important;
+    height: 40px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
+}}
+
+div[data-testid="stColumn"] > div > div > div > button[key="btn_cambiar_area"]:hover {{
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+    border-color: #94a3b8 !important;
+    transform: translateY(-1px) !important;
+}}
+
 /* ESTILIZACIÓN DEL MODAL */
 div[data-testid="stDialog"] > div {{
     background: rgba(255, 255, 255, 0.96) !important;
@@ -419,16 +439,20 @@ else:
 
     else:
 
-        head_col1, head_col2 = st.columns([3, 1], vertical_alignment="center")
+        # ENCABEZADO SUPERIOR CON NAVEGACIÓN LIMPIA
+        head_col1, head_col2 = st.columns([3.8, 1.2], vertical_alignment="center")
+        
         with head_col1:
             st.markdown(f'<div class="main-title">{area}</div>', unsafe_allow_html=True)
+            st.markdown('<div class="subtitle">Módulos e indicadores disponibles para esta área</div>', unsafe_allow_html=True)
+            
         with head_col2:
-            if st.button("← Cambiar área", key="btn_cambiar_area"):
+            if st.button("← Cambiar área", key="btn_cambiar_area", use_container_width=True):
                 st.session_state.area = None
                 st.session_state.auth = False
                 st.rerun()
 
-        st.divider()
+        st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
 
         # ================= GERENCIA VE TODO =================
         if area == "Gerencia":
