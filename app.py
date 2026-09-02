@@ -1,12 +1,28 @@
-import streamlit as st
 from pathlib import Path
+import streamlit as st
+from PIL import Image
+
+# =========================================================
+# RUTAS DE ARCHIVOS
+# =========================================================
+BASE_DIR = Path(__file__).resolve().parent
+ASSETS_DIR = BASE_DIR / "assets"
+LOGO_PATH = ASSETS_DIR / "logo.png"  # Ajusta el nombre de tu imagen aquí (.png, .jpg, .ico)
+
+# =========================================================
+# CARGAR ICONO/LOGO DE LA EMPRESA
+# =========================================================
+if LOGO_PATH.exists():
+    icon_image = Image.open(LOGO_PATH)
+else:
+    icon_image = "🔍"  # Icono de respaldo si no encuentra la imagen
 
 # =========================================================
 # CONFIG
 # =========================================================
 st.set_page_config(
     page_title="Control Interno • GDP",
-    page_icon="CI",
+    page_icon=icon_image,
     layout="wide"
 )
 
