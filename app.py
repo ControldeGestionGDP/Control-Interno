@@ -10,10 +10,10 @@ st.set_page_config(
     layout="wide"
 )
 
-# Paleta Naranja Corporativa
-COLOR1 = "#E65100"  # Naranja Oscuro
-COLOR2 = "#F57C00"  # Naranja Principal
-COLOR3 = "#FF9800"  # Naranja Vibrante / Accent
+# Paleta Verde Corporativa
+COLOR1 = "#0b5334"  # Verde Oscuro
+COLOR2 = "#0b5334"  # Verde Principal
+COLOR3 = "#0b5334"  # Verde Accent
 
 # URL Por defecto para reportes sin enlace aún
 URL_PENDIENTE = "https://app.powerbi.com"
