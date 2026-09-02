@@ -10,7 +10,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Paleta Verde Corporativa Ultra-Premium
+# Paleta Verde Corporativa
 COLOR1 = "#0b5334"  # Verde Oscuro
 COLOR2 = "#0b5334"  # Verde Principal
 COLOR3 = "#0b5334"  # Verde Accent
@@ -51,13 +51,13 @@ with st.sidebar:
     st.markdown(f"""
     <style>
     .executive-card-sidebar {{
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border-radius: 20px;
         padding: 24px 20px;
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 15px 35px -10px rgba(11, 83, 52, 0.12), 0 0 0 1px rgba(11, 83, 52, 0.05);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        box-shadow: 0 15px 35px -10px rgba(11, 83, 52, 0.12);
         text-align: center;
         margin-bottom: 24px;
         position: relative;
@@ -127,30 +127,24 @@ with st.sidebar:
 
 
 # =========================================================
-# ESTILOS VISUALES EXPERT LEVEL
+# ESTILOS VISUALES
 # =========================================================
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* Reset y Fondo Dinámico */
 html, body, [class*="css"] {{
     font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
 }}
 
 .stApp {{
-    background: radial-gradient(circle at 50% -20%, rgba(11, 83, 52, 0.05), transparent 70%),
-                radial-gradient(circle at 0% 100%, rgba(11, 83, 52, 0.03), transparent 50%),
-                #f8fafc;
+    background: #f8fafc;
 }}
 
-/* Encabezados Ultra Clean */
 .main-title {{
     font-size: 2.6rem;
     font-weight: 800;
-    background: linear-gradient(135deg, {COLOR1} 0%, #15803d 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: {COLOR1};
     letter-spacing: -0.03em;
     line-height: 1.2;
     margin-bottom: 4px;
@@ -166,89 +160,87 @@ html, body, [class*="css"] {{
 .title-accent {{
     height: 4px;
     width: 80px;
-    background: linear-gradient(90deg, {COLOR1}, #16a34a);
+    background: {COLOR1};
     border-radius: 99px;
     margin-bottom: 36px;
-    box-shadow: 0 4px 12px rgba(11, 83, 52, 0.25);
 }}
 
-/* TARJETAS GLASSMORPHISM CON SHIMMER EFFECT */
+/* TARJETAS GLASSMORPHISM */
 .card {{
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px);
+    background: #ffffff;
     border: 1px solid rgba(226, 232, 240, 0.8);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
     margin-bottom: 12px;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 
 .card:hover {{
-    transform: translateY(-8px) scale(1.01);
-    background: #ffffff;
-    border-color: rgba(11, 83, 52, 0.3);
-    box-shadow: 0 25px 40px -12px rgba(11, 83, 52, 0.18), 0 0 0 1px rgba(11, 83, 52, 0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 30px -10px rgba(11, 83, 52, 0.15);
 }}
 
 .card img {{
-    border-radius: 20px 20px 0 0;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 18px 18px 0 0;
+    transition: transform 0.5s ease;
 }}
 
 .card:hover img {{
-    transform: scale(1.06);
+    transform: scale(1.04);
 }}
 
 .card-title {{
-    padding: 20px;
+    padding: 18px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: #0f172a;
     line-height: 1.4;
 }}
 
-/* BOTONES DE ACTION SYSTEM */
+/* BOTONES ESTILO FOTO 2 (Redondeados tipo Pill con Sombra Suave Proyectada) */
 div.stButton > button {{
     width: 100%;
-    background: linear-gradient(135deg, {COLOR1} 0%, #0d633e 100%);
+    background-color: {COLOR1} !important;
     color: #ffffff !important;
-    border-radius: 12px;
-    border: none;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.3px;
-    height: 48px;
-    box-shadow: 0 6px 16px rgba(11, 83, 52, 0.22);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 18px !important; /* Mismo curvado pronunciado de la foto 2 */
+    border: none !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    height: 48px !important;
+    box-shadow: 0 12px 24px -6px rgba(11, 83, 52, 0.45) !important; /* Mismo sombreado flotante de la foto 2 */
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }}
 
 div.stButton > button:hover {{
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(11, 83, 52, 0.35);
-    background: linear-gradient(135deg, #0e613d 0%, #15803d 100%);
+    transform: translateY(-3px) !important;
+    box-shadow: 0 18px 30px -6px rgba(11, 83, 52, 0.55) !important;
+    background-color: #083e27 !important;
 }}
 
-/* CAJA DE LOGIN PROFESIONAL */
+div.stButton > button:active {{
+    transform: translateY(0) !important;
+    box-shadow: 0 6px 14px -4px rgba(11, 83, 52, 0.4) !important;
+}}
+
+/* CAJA DE LOGIN */
 .login-box {{
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    padding: 48px;
+    background: #ffffff;
+    padding: 44px;
     border-radius: 24px;
-    box-shadow: 0 25px 50px -12px rgba(11, 83, 52, 0.15), 0 0 0 1px rgba(226, 232, 240, 0.8);
+    box-shadow: 0 20px 40px -12px rgba(11, 83, 52, 0.12), 0 0 0 1px rgba(226, 232, 240, 0.8);
     border-top: 6px solid {COLOR1};
-    animation: loginAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: loginAppear 0.4s ease;
 }}
 
 @keyframes loginAppear {{
-    from {{ opacity: 0; transform: scale(0.95) translateY(10px); }}
-    to {{ opacity: 1; transform: scale(1) translateY(0); }}
+    from {{ opacity: 0; transform: translateY(10px); }}
+    to {{ opacity: 1; transform: translateY(0); }}
 }}
 
-/* STYLING EN INPUTS */
+/* INPUTS */
 div[data-baseweb="input"] {{
-    border-radius: 12px !important;
+    border-radius: 14px !important;
     background-color: #f8fafc !important;
     border: 1.5px solid #e2e8f0 !important;
     transition: all 0.2s ease !important;
@@ -299,21 +291,21 @@ def open_panel_button(url, key):
             width:100%;
             text-align:center;
             padding:13px 18px;
-            border-radius:12px;
+            border-radius:18px;
             font-weight:700;
             font-size:0.92rem;
             color:white;
-            background: linear-gradient(135deg, {COLOR1} 0%, #0d633e 100%);
-            box-shadow: 0 6px 16px rgba(11, 83, 52, 0.2);
+            background-color: {COLOR1};
+            box-shadow: 0 12px 24px -6px rgba(11, 83, 52, 0.45);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             margin-top: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-        " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(11, 83, 52, 0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 16px rgba(11, 83, 52, 0.2)';" >
+        " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 18px 30px -6px rgba(11, 83, 52, 0.55)'; this.style.backgroundColor='#083e27';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 24px -6px rgba(11, 83, 52, 0.45)'; this.style.backgroundColor='{COLOR1}';" >
             <span>Abrir Dashboard</span>
-            <span style="font-size: 1.1rem; transition: transform 0.2s ease;">→</span>
+            <span style="font-size: 1.1rem;">→</span>
         </div>
     </a>
     """, unsafe_allow_html=True)
@@ -325,7 +317,7 @@ def open_panel_button(url, key):
 if st.session_state.area is None:
 
     st.markdown('<div class="main-title">Ecosistema Digital • Control Interno</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Seleccione el área estratégica para desplegar indicadores</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Seleccione el área de interés</div>', unsafe_allow_html=True)
     st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
@@ -493,6 +485,6 @@ else:
 # FOOTER
 # =========================================================
 st.markdown(
-    "<center style='color:#94a3b8;margin-top:60px;font-size:0.85rem;font-weight:600;letter-spacing:0.5px;'>Gerencia de Control de Gestión • Grupo Don Pollo</center>",
+    "<center style='color:#94a3b8;margin-top:60px;font-size:0.85rem;font-weight:600;'>Gerencia de Control de Gestión • Grupo Don Pollo</center>",
     unsafe_allow_html=True
 )
