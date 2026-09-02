@@ -164,7 +164,7 @@ div.stButton > button:hover {{
 }}
 
 /* SOBREESCRITURA DIRECTA POR ARIA-LABEL PARA ACCESO GERENCIAL (PLOMO) */
-div.stButton > button[aria-label="🔒 Acceso Gerencial"] {{
+div.stButton > button[aria-label="Acceso Gerencial"] {{
     background: #f1f5f9 !important;
     color: #475569 !important;
     border: 1.5px solid #cbd5e1 !important;
@@ -175,7 +175,7 @@ div.stButton > button[aria-label="🔒 Acceso Gerencial"] {{
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
 }}
 
-div.stButton > button[aria-label="🔒 Acceso Gerencial"]:hover {{
+div.stButton > button[aria-label="Acceso Gerencial"]:hover {{
     background: #e2e8f0 !important;
     color: #0f172a !important;
     border-color: #94a3b8 !important;
@@ -333,7 +333,7 @@ def modal_gerencia():
         if LOGO_PATH.exists():
             st.image(LOGO_PATH.read_bytes(), use_container_width=True)
         else:
-            st.markdown("<div style='text-align:center;font-size:3rem;'>🏢</div>", unsafe_allow_html=True)
+            st.markdown("<div style='text-align:center;font-size:3rem;'></div>", unsafe_allow_html=True)
 
     st.markdown("""
         <div class="exe-modal-header">
@@ -370,7 +370,7 @@ if st.session_state.area is None:
     
     with nav_col2:
         # Botón estilo Pill/Badge plomo
-        if st.button("🔒 Acceso Gerencial", key="btn_open_modal", use_container_width=True):
+        if st.button("Acceso Gerencial", key="btn_open_modal", use_container_width=True):
             modal_gerencia()
 
     st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
@@ -467,7 +467,7 @@ else:
             # Fila 2 - Planta de Beneficio (Alineado a la izquierda)
             col1_f2, col2_f2, col3_f2 = st.columns(3)
             with col1_f2:
-                report_card("Reclamos Clientes", "En Desarrollo - Gestión de reclamos externos", "ReclamosClientes.jpg")
+                report_card("Reclamos Clientes", "En Desarrollo - Gestión de reclamos externos", "ReclamosExternos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pb4")
 
             st.divider()
@@ -511,7 +511,7 @@ else:
             # Fila 2 (Alineado a la izquierda)
             col1_f2, col2_f2, col3_f2 = st.columns(3)
             with col1_f2:
-                report_card("Reclamos Clientes", "En Desarrollo - Gestión de reclamos externos", "ReclamosClientes.jpg")
+                report_card("Reclamos Clientes", "En Desarrollo - Gestión de reclamos externos", "ReclamosExternos.jpg")
                 open_panel_button(URL_PENDIENTE, "pb4")
 
         # ================= TIENDA MI CASERO =================
