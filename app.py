@@ -414,7 +414,7 @@ else:
                 report_card("Hígado Descarte", "Seguimiento y merma de descarte", "HigadoDescarte.jpg")
                 open_panel_button("https://app.powerbi.com/links/hyk8FNTUbL?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "g_pb2")
             with col3:
-                report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades internas", "ReclamosInternos.jpg")
+                report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "g_pb3")
             
             col_g1, col_g2, col_g3 = st.columns(3)
@@ -456,7 +456,7 @@ else:
                 report_card("Hígado Descarte", "Seguimiento y merma de descarte", "HigadoDescarte.jpg")
                 open_panel_button("https://app.powerbi.com/links/hyk8FNTUbL?ctid=42fc96b3-c018-482d-8ada-cab81720489e&pbi_source=linkShare", "pb2")
             with col3:
-                report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades internas", "ReclamosInternos.jpg")
+                report_card("Reclamos Internos", "En Desarrollo - Registro de no conformidades", "ReclamosInternos.jpg")
                 open_panel_button(URL_PENDIENTE, "pb3")
             
             col4, col5, col6 = st.columns(3)
