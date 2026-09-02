@@ -7,7 +7,7 @@ from PIL import Image
 # =========================================================
 BASE_DIR = Path(__file__).resolve().parent
 ASSETS_DIR = BASE_DIR / "assets"
-LOGO_PATH = ASSETS_DIR / "logo.png"  # Ajusta el nombre de tu imagen aquí (.png, .jpg, .ico)
+LOGO_PATH = ASSETS_DIR / "logo.png"
 
 # =========================================================
 # CARGAR ICONO/LOGO DE LA EMPRESA
@@ -15,7 +15,7 @@ LOGO_PATH = ASSETS_DIR / "logo.png"  # Ajusta el nombre de tu imagen aquí (.png
 if LOGO_PATH.exists():
     icon_image = Image.open(LOGO_PATH)
 else:
-    icon_image = "🔍"  # Icono de respaldo si no encuentra la imagen
+    icon_image = "🔍"
 
 # =========================================================
 # CONFIG
@@ -33,12 +33,6 @@ COLOR3 = "#0b5334"  # Verde Accent
 
 # URL Por defecto para reportes sin enlace aún
 URL_PENDIENTE = "https://app.powerbi.com"
-
-# =========================================================
-# RUTA BASE
-# =========================================================
-BASE_DIR = Path(__file__).resolve().parent
-ASSETS_DIR = BASE_DIR / "assets"
 
 # =========================================================
 # PASSWORDS
@@ -184,7 +178,7 @@ html, body, [class*="css"] {{
     width: 80px;
     background: linear-gradient(90deg, {COLOR1}, #16a34a);
     border-radius: 99px;
-    margin-bottom: 36px;
+    margin-bottom: 24px;
     box-shadow: 0 4px 12px rgba(11, 83, 52, 0.25);
 }}
 
@@ -408,13 +402,17 @@ else:
 
     else:
 
-        st.markdown(f'<div class="main-title">{area}</div>', unsafe_allow_html=True)
-        st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
+        # ENCABEZADO OPTIMIZADO CON NAVEGACIÓN A LA DERECHA
+        head_col1, head_col2 = st.columns([3, 1], vertical_alignment="center")
+        with head_col1:
+            st.markdown(f'<div class="main-title">{area}</div>', unsafe_allow_html=True)
+        with head_col2:
+            if st.button("← Cambiar área", key="btn_cambiar_area"):
+                st.session_state.area = None
+                st.session_state.auth = False
+                st.rerun()
 
-        if st.button("Cambiar área"):
-            st.session_state.area = None
-            st.session_state.auth = False
-            st.rerun()
+        st.markdown('<div class="title-accent"></div>', unsafe_allow_html=True)
 
         st.divider()
 
