@@ -53,7 +53,7 @@ if "auth" not in st.session_state:
     st.session_state.auth = False
 
 # =========================================================
-# OCULTAR BARRA LATERAL
+# OCULTAR BARRA LATERAL Y AJUSTAR CONTENEDOR BLANCO
 # =========================================================
 st.markdown("""
 <style>
@@ -64,7 +64,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =========================================================
-# ESTILOS VISUALES
+# ESTILOS VISUALES - FONDO BLANCO PURO
 # =========================================================
 st.markdown(f"""
 <style>
@@ -74,10 +74,10 @@ html, body, [class*="css"] {{
     font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
 }}
 
-.stApp {{
-    background: radial-gradient(circle at 50% -20%, rgba(11, 83, 52, 0.05), transparent 70%),
-                radial-gradient(circle at 0% 100%, rgba(11, 83, 52, 0.03), transparent 50%),
-                #f8fafc;
+/* FONDO COMPLETAMENTE BLANCO */
+.stApp, [data-testid="stHeader"], [data-testid="stAppViewContainer"] {{
+    background-color: #ffffff !important;
+    background-image: none !important;
 }}
 
 .main-title {{
@@ -111,9 +111,8 @@ html, body, [class*="css"] {{
 .card {{
     border-radius: 20px;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
     margin-bottom: 12px;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -143,29 +142,29 @@ html, body, [class*="css"] {{
     line-height: 1.4;
 }}
 
-/* BOTONES GENERALES (REGLA BASE) */
+/* BOTONES GENERALES (VERDE DE LA MARCA) */
 div.stButton > button {{
     width: 100%;
-    background: linear-gradient(135deg, {COLOR1} 0%, #0d633e 100%);
+    background: linear-gradient(135deg, {COLOR1} 0%, #0d633e 100%) !important;
     color: #ffffff !important;
-    border-radius: 12px;
-    border: none;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.3px;
-    height: 48px;
-    box-shadow: 0 6px 16px rgba(11, 83, 52, 0.22);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 12px !important;
+    border: none !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.3px !important;
+    height: 48px !important;
+    box-shadow: 0 6px 16px rgba(11, 83, 52, 0.22) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }}
 
 div.stButton > button:hover {{
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(11, 83, 52, 0.35);
-    background: linear-gradient(135deg, #0e613d 0%, #15803d 100%);
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 25px rgba(11, 83, 52, 0.35) !important;
+    background: linear-gradient(135deg, #0e613d 0%, #15803d 100%) !important;
 }}
 
-/* SOBREESCRITURA ESPECÍFICA: BOTÓN ACCESO GERENCIAL (PLOMO) */
-div.stButton > button[key="btn_open_modal"] {{
+/* SOBREESCRITURA DIRECTA POR ARIA-LABEL PARA ACCESO GERENCIAL (PLOMO) */
+div.stButton > button[aria-label="🔒 Acceso Gerencial"] {{
     background: #f1f5f9 !important;
     color: #475569 !important;
     border: 1.5px solid #cbd5e1 !important;
@@ -176,7 +175,7 @@ div.stButton > button[key="btn_open_modal"] {{
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
 }}
 
-div.stButton > button[key="btn_open_modal"]:hover {{
+div.stButton > button[aria-label="🔒 Acceso Gerencial"]:hover {{
     background: #e2e8f0 !important;
     color: #0f172a !important;
     border-color: #94a3b8 !important;
@@ -184,8 +183,8 @@ div.stButton > button[key="btn_open_modal"]:hover {{
     transform: translateY(-2px) !important;
 }}
 
-/* SOBREESCRITURA ESPECÍFICA: BOTÓN CAMBIAR ÁREA */
-div.stButton > button[key="btn_cambiar_area"] {{
+/* SOBREESCRITURA DIRECTA POR ARIA-LABEL PARA CAMBIAR ÁREA */
+div.stButton > button[aria-label="← Cambiar área"] {{
     background: transparent !important;
     color: #64748b !important;
     border: 1.5px solid #cbd5e1 !important;
@@ -196,7 +195,7 @@ div.stButton > button[key="btn_cambiar_area"] {{
     box-shadow: none !important;
 }}
 
-div.stButton > button[key="btn_cambiar_area"]:hover {{
+div.stButton > button[aria-label="← Cambiar área"]:hover {{
     background: #f1f5f9 !important;
     color: #0f172a !important;
     border-color: #94a3b8 !important;
@@ -205,8 +204,7 @@ div.stButton > button[key="btn_cambiar_area"]:hover {{
 
 /* ESTILIZACIÓN DEL MODAL */
 div[data-testid="stDialog"] > div {{
-    background: rgba(255, 255, 255, 0.96) !important;
-    backdrop-filter: blur(24px) !important;
+    background: #ffffff !important;
     border-radius: 28px !important;
     border: 1px solid rgba(11, 83, 52, 0.15) !important;
     box-shadow: 0 30px 60px -12px rgba(11, 83, 52, 0.25) !important;
@@ -536,7 +534,7 @@ st.markdown(f"""
     margin-top: 80px;
     padding-top: 24px;
     padding-bottom: 30px;
-    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    border-top: 1px solid #e2e8f0;
     text-align: center;
 ">
     <div style="
