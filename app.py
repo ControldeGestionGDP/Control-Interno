@@ -58,6 +58,10 @@ with st.sidebar:
         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         text-align: center;
         margin-bottom: 20px;
+        transition: transform 0.3s ease;
+    }}
+    .executive-card-sidebar:hover {{
+        transform: translateY(-2px);
     }}
     .exe-title-sidebar {{
         font-weight: 800;
@@ -104,26 +108,28 @@ with st.sidebar:
 st.markdown(f"""
 <style>
 html, body {{
-    font-family: "Segoe UI", sans-serif;
-    background: #f4f6fb;
-    animation: fadeInBody 0.6s ease-in-out;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f8fafc;
+    animation: fadeInBody 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 @keyframes fadeInBody {{
-    from {{ opacity: 0; transform: translateY(8px); }}
+    from {{ opacity: 0; transform: translateY(6px); }}
     to {{ opacity: 1; transform: translateY(0); }}
 }}
 .main-title {{
-    font-size: 2.6rem;
+    font-size: 2.5rem;
     font-weight: 800;
     color: {COLOR1};
-    animation: slideInTitle 0.7s ease;
+    letter-spacing: -0.5px;
+    animation: slideInTitle 0.6s ease;
 }}
 @keyframes slideInTitle {{
-    from {{ opacity: 0; transform: translateX(-10px); }}
+    from {{ opacity: 0; transform: translateX(-8px); }}
     to {{ opacity: 1; transform: translateX(0); }}
 }}
 .subtitle {{
-    color: #6b7280;
+    color: #64748b;
+    font-size: 1.05rem;
     margin-bottom: 12px;
 }}
 .title-accent {{
@@ -132,7 +138,7 @@ html, body {{
     background: linear-gradient(90deg,{COLOR1},{COLOR2},{COLOR3});
     border-radius: 4px;
     margin-bottom: 28px;
-    animation: expandBar 0.8s ease forwards;
+    animation: expandBar 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }}
 @keyframes expandBar {{
     from {{ width: 0; }}
@@ -142,37 +148,38 @@ html, body {{
     background: white;
     padding: 40px;
     border-radius: 18px;
-    box-shadow: 0 25px 55px rgba(0,0,0,0.12);
+    box-shadow: 0 20px 40px rgba(11, 83, 52, 0.08);
     border-top: 5px solid {COLOR1};
-    animation: fadeInCard 0.5s ease;
+    animation: fadeInCard 0.4s ease;
 }}
 @keyframes fadeInCard {{
-    from {{ opacity: 0; transform: translateY(12px); }}
+    from {{ opacity: 0; transform: translateY(10px); }}
     to {{ opacity: 1; transform: translateY(0); }}
 }}
 .card {{
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-    margin-bottom: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    margin-bottom: 12px;
     background: white;
-    transition: all 0.35s cubic-bezier(.4,0,.2,1);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }}
 .card:hover {{
-    transform: translateY(-8px);
-    box-shadow: 0 25px 55px rgba(0,0,0,0.18);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px rgba(11, 83, 52, 0.12);
 }}
 .card img {{
-    border-radius: 18px;
+    border-radius: 18px 18px 0 0;
     transition: transform 0.4s ease;
 }}
 .card:hover img {{
-    transform: scale(1.04);
+    transform: scale(1.03);
 }}
 .card-title {{
-    padding: 15px;
+    padding: 16px;
     font-weight: 700;
     font-size: 1.1rem;
+    line-height: 1.4;
 }}
 div.stButton > button {{
     width: 100%;
@@ -182,11 +189,22 @@ div.stButton > button {{
     border: none;
     font-weight: 700;
     height: 45px;
-    transition: all 0.25s ease;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }}
 div.stButton > button:hover {{
-    transform: translateY(-3px);
-    box-shadow: 0 10px 22px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(11, 83, 52, 0.25);
+}}
+div.stButton > button:active {{
+    transform: translateY(0);
+}}
+/* Estilo mejorado para input de contraseña */
+div[data-baseweb="input"] {{
+    border-radius: 10px !important;
+}}
+div[data-baseweb="input"]:focus-within {{
+    border-color: {COLOR1} !important;
 }}
 </style>
 """, unsafe_allow_html=True)
@@ -212,7 +230,7 @@ def report_card(titulo, desc, img_relative_path):
     st.markdown(f"""
         <div class="card-title">
             {titulo}<br>
-            <span style="font-weight:400;color:#6b7280;font-size:0.95rem;">
+            <span style="font-weight:400;color:#6b7280;font-size:0.92rem;">
                 {desc}
             </span>
         </div>
@@ -232,8 +250,10 @@ def open_panel_button(url, key):
             font-weight:700;
             color:white;
             background: linear-gradient(90deg,{COLOR1},{COLOR2},{COLOR3});
-            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-        ">
+            box-shadow: 0 6px 14px rgba(11, 83, 52, 0.2);
+            transition: all 0.25s ease;
+            margin-top: 4px;
+        " onmouseover="this.style.transform='translateY(-2px)';" onmouseout="this.style.transform='translateY(0)';" >
             Abrir Dashboard
         </div>
     </a>
@@ -292,20 +312,20 @@ else:
                 <div style="font-size:1.4rem;font-weight:700;color:{COLOR1};text-align:center;">
                     {area}
                 </div>
-                <div style="text-align:center;color:#6b7280;margin-bottom:20px;">
-                    Ingrese su contraseña
+                <div style="text-align:center;color:#6b7280;margin-bottom:20px;font-size:0.95rem;">
+                    Ingrese su contraseña para continuar
                 </div>
             </div>
             """, unsafe_allow_html=True)
 
-            pwd = st.text_input("Contraseña", type="password")
+            pwd = st.text_input("Contraseña", type="password", placeholder="••••••••")
 
             if st.button("Ingresar", use_container_width=True):
                 if pwd == PASSWORDS[area]:
                     st.session_state.auth = True
                     st.rerun()
                 else:
-                    st.error("Contraseña incorrecta")
+                    st.error("Contraseña incorrecta. Por favor intente nuevamente.")
 
             if st.button("Volver", use_container_width=True):
                 st.session_state.area = None
